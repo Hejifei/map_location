@@ -1,0 +1,21 @@
+<!--index.wxml-->
+<view class="container">
+    <map
+    markers
+        class="map"
+        id="map"
+        latitude="{{location.latitude}}"
+        longitude="{{location.longitude}}"
+        scale='16'
+        show-location="{{showPosition}}"
+    > 
+    </map>
+    <view class="loginWrapper" wx:if="isLocationPersionAllowed && !isLogin">
+        <van-button
+            class="button"
+            type="primary"
+        >
+            登录
+        </van-button>
+    </view>
+</view>

@@ -1,0 +1,28 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "地点定位",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  
+  "usingComponents": {
+    "van-button": "@vant/weapp/button/index"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "将获取你的具体位置信息，用于定位当前实时位置"
+    }
+  },
+  "plugins": {
+    "chooseLocation": {
+        "version": "1.0.6",
+        "provider": "wx76a9a06e5b4e693e"
+    }
+  }
+}
