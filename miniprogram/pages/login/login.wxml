@@ -1,0 +1,32 @@
+<!--logs.wxml-->
+<view class="container ">
+  <view class="login_header">
+    <view class="text_wrapper">
+      <view class="welcome">欢迎来到</view>
+      <view class="app_name">地图标记</view>
+    </view>
+    <view class="login_form">
+        <view class="title">账号</view>
+        <input
+            class="input"
+            model:value="{{name}}"
+            placeholder="请输入账号名称"
+        />
+      <view class="title">密码</view>
+      <input
+        class="input"
+        placeholder="请输入密码"
+        model:value="{{password}}"
+    />
+      <view class="btn_wrapper">
+        <van-button
+            class="button"
+            type="primary"
+            bindtap="onLoginBtnTap"
+        >
+            登录
+        </van-button>
+    </view>
+    </view>
+  </view>
+</view>

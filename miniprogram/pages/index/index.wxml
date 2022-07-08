@@ -12,15 +12,25 @@
         bindpoitap="onTapPoi"
         show-location="{{showPosition}}"
         bindmarkertap="reverseLatLonToAddress"
+        bindcallouttap="reverseLatLonToAddress"
     > 
     </map>
-    <view class="loginWrapper" wx:if="isLocationPersionAllowed && !isLogin">
+    <view class="loginWrapper" wx:if="isLocationPersionAllowed">
         <van-button
             class="button"
             type="primary"
             bindtap="onLoginBtnTap"
+            wx:if="{{!isLoginedIn}}"
         >
             登录
+        </van-button>
+        <van-button
+            class="button"
+            type="primary"
+            bindtap="onMarkAddBtnTap"
+            wx:else
+        >
+            标点记录
         </van-button>
     </view>
 </view>

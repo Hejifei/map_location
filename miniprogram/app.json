@@ -1,7 +1,12 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/login/login",
+    "pages/mark_list/mark_list",
+    "pages/type_select/type_select",
+    
     "pages/logs/logs"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

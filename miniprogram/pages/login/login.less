@@ -1,0 +1,79 @@
+/* pages/login/login.wxss */
+
+.container {
+    position: relative;
+    box-sizing: border-box;
+    .login_header {
+        height: 315px;
+        width: 100%;
+        // width: 375px;
+        background-image: url(https://636c-cloud1-2grtkpnv263496be-1307461040.tcb.qcloud.la/login_bg.png?sign=b6ee40b69c127425ae310c9d3f64718a&t=1657281994);
+        background-size: 100% 100%;
+        position: absolute; /* 使用 z-index 调整上下层级需要脱离文档流 */
+        top: 0;
+        z-index: -100; /* z-index 设低一点，让页面元素可以覆盖它 */
+        color: #fff;
+
+        .text_wrapper {
+          position: absolute;
+          top: 134px;
+          left: 15px;
+        }
+
+        .welcome {
+          font-size: 22px;
+        }
+
+        .app_name {
+          font-size: 31px;
+        }
+    }
+    
+    .login_form {
+        box-sizing: border-box;
+        background-color: #fff;
+        position: absolute;
+        top: 272px;
+        width: 100%;
+        border-radius: 8px 8px 0 0;
+        padding: 29px;
+
+        .title {
+            box-sizing: border-box;
+            font-size: 17px;
+            color: #333;
+            margin-top: 23px;
+
+            &:nth-child(1) {
+                margin-top: 0;
+            }
+        }
+
+        .input {
+            box-sizing: border-box;
+            line-height: 45px;
+            height: 45px;
+            width: 100%;
+            color: #333;
+            font-size: 14px;
+            border-bottom: 1px solid #f2f2f2;
+
+            &::placeholder {
+                color: #B4BCC7;
+                font-size: 14px;
+            }
+        }
+
+        .btn_wrapper {
+            padding: 33px 0 10px;
+            button {
+                width: 100%;
+                height: 45px;
+                border-radius: 45px;
+                border: 0;
+                background: linear-gradient(270deg, #2C6DFF 0%, #4DC6FF 100%);
+                font-size: 17px;
+            }
+        }
+    }
+}
