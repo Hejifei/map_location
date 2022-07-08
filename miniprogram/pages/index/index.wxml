@@ -11,12 +11,14 @@
         bindregionchange="onChangeRegion"
         bindpoitap="onTapPoi"
         show-location="{{showPosition}}"
+        bindmarkertap="reverseLatLonToAddress"
     > 
     </map>
     <view class="loginWrapper" wx:if="isLocationPersionAllowed && !isLogin">
         <van-button
             class="button"
             type="primary"
+            bindtap="onLoginBtnTap"
         >
             登录
         </van-button>

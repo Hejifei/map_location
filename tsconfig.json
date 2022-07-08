@@ -28,7 +28,7 @@
   },
   "include": [
     "./**/*.ts"
-  ],
+, "miniprogram/config/appConfig.js"  ],
   "exclude": [
     "node_modules"
   ]
