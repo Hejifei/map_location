@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/mark_add/residential_building/residential_building",
     "pages/index/index",
     "pages/login/login",
     "pages/mark_list/mark_list",
