@@ -1,3 +1,7 @@
+export const REQUEST_URL = 'http://gmap.dev.zhangxinkeji.com'
+
+export const ERROR_CODE_NEED_LOGIN = 401  //  错误码,需要重新登录
+
 export const MARK_TYPE_RESIDENTIAL_BUILDING = 1;    //  居住类建筑停车设施
 export const MARK_TYPE_NON_RESIDENTIAL_BUILDING = 2;    //  非居住类建筑停车设施
 export const MARK_TYPE_OFF_STREET_PUBLIC = 3;   //  路外公共停车设施

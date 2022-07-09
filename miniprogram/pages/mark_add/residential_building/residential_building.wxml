@@ -233,47 +233,32 @@
     </view>
 
     <view class="itemWrapper">
-        <view class="title">停车需求信息</view>
-        <van-cell-group>
-            <van-cell
-                title="第一次记录时间"
-                bind:click="onTimeSelectTap"
-            >
-                <van-icon
-                    slot="right-icon"
-                    wx:if="{{first_recording_time}}"
-                >
-                    {{first_recording_time}}
-                </van-icon>
-                <van-icon
-                    slot="right-icon"
-                    wx:else
-                >
-                    <view class='selectPlease'>
-                        请选择时间
-                    </view>
-                </van-icon>
-            </van-cell>
-            <van-field
-                clearable
-                label="划线停车数"
-                placeholder="请输入停车位数量（辆）"
-                input-align="right"
-                type="number"
-                readonly="{{isReadonly}}"
-                model:value="{{first_number_of_crossed_stops}}"
-            />
-            <van-field
-                clearable
-                label="未划线停车数"
-                placeholder="请输入停车位数量（辆）"
-                input-align="right"
-                type="number"
-                readonly="{{isReadonly}}"
-                model:value="{{first_number_of_unmarked_stops}}"
-            />
-        </van-cell-group>
-        
+      <park-need-info
+        model:first_recording_time="{{first_recording_time}}"
+        model:first_number_of_crossed_stops="{{first_number_of_crossed_stops}}"
+        model:first_number_of_unmarked_stops="{{first_number_of_unmarked_stops}}"
+        model:peak_recording_time="{{peak_recording_time}}"
+        model:peak_number_of_crossed_stops="{{peak_number_of_crossed_stops}}"
+        model:peak_number_of_unmarked_stops="{{peak_number_of_unmarked_stops}}"
+      />
+    </view>
+
+    <view class="itemWrapper">
+      <img-manage
+        imgList="{{images}}"
+        bind:onImgListChange="onImgChange"
+       />
+    </view>
+
+    <view class="itemWrapper">
+        <view class="title">备注</view>
+        <van-field
+          model:value="{{remark}}"
+          type="textarea"
+          placeholder="请输入备注信息"
+          autosize="{{remarkAutoResizeOption}}"
+          border="{{false}}"
+        />
     </view>
 
     <view class="btn_wrapper">
@@ -282,23 +267,9 @@
             type="primary"
             bindtap="onSubmitBtnTap"
         >
-            登录
+          保 存
         </van-button>
     </view>
 
-    <van-popup
-        wx:if="isTimeSelectVisible"
-        show="{{isTimeSelectVisible}}"
-        position="bottom"
-        custom-style="height: 350px;"
-        bind:close="onTimeSelectClose"
-    >
-        <van-datetime-picker
-            type="time"
-            value="{{first_recording_time}}"
-            bind:change="onTimeChange"
-            bind:confirm="onTimeSelectConfirm"
-            bind:cancel="onTimeSelectClose"
-            />
-    </van-popup>
+    <van-toast id="van-toast" />
 </view>

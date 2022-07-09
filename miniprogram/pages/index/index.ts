@@ -1,6 +1,6 @@
 // index.ts
 import {PLUGIN_KEY, CDN_PATH} from '../../config/appConfig.js';
-import {getUserInfo} from '../../utils/util';
+import {getUserToken} from '../../utils/util';
 // const LocationIcon =  '../../assets/imgs/location_icon.png'
 import QQMapWX from '../../utils/qqmap-wx-jssdk.min.js';
 
@@ -44,7 +44,7 @@ Page({
         // isLogin: true,
         isRegionChanged: false, //  视野是否变换,若变化了,显示mark并设置中心点坐标为标注点
         // isLoginedIn: true,
-        isLoginedIn: getUserInfo(),
+        isLoginedIn: getUserToken(),
         markers: [defaultMarkConfig],
         timer: 0,
     },

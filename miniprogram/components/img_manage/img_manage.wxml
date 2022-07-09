@@ -1,0 +1,15 @@
+<!--logs.wxml-->
+<view class="itemWrapper">
+  <view class="title">小区基本信息</view>
+  <view class="itemContent">
+    <van-uploader
+      file-list="{{imgList}}"
+      deletable="{{ true }}"
+      max-count="6"
+      bind:before-read="beforeRead"
+      bind:after-read="afterRead"
+      bind:delete="afterDelete"
+    />
+  </view>
+</view>
+
