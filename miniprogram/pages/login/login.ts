@@ -30,7 +30,7 @@ Page({
           const token = res.data.data.userinfo.token
           setUserToken(token)
           wx.navigateTo({
-              url: '../index/index',
+              url: '/pages/index/index',
           })
         } else {
           Toast.fail(res.data.msg)

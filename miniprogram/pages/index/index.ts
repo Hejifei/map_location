@@ -44,7 +44,7 @@ Page({
         // isLogin: true,
         isRegionChanged: false, //  视野是否变换,若变化了,显示mark并设置中心点坐标为标注点
         // isLoginedIn: true,
-        isLoginedIn: getUserToken(),
+        isLoginedIn: false,
         markers: [defaultMarkConfig],
         timer: 0,
     },
@@ -59,9 +59,9 @@ Page({
         })
     },
     onLoad() {
-        console.log({
-            isLoginedIn: this.data.isLoginedIn
-        })
+      this.setData({
+        isLoginedIn: getUserToken(),
+      })
         var that = this
         wx.getLocation({
             type: 'gcj02',
