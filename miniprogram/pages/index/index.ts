@@ -1,6 +1,6 @@
 // index.ts
 import {PLUGIN_KEY, CDN_PATH} from '../../config/appConfig.js';
-import {getUserToken} from '../../utils/util';
+import {getUserToken, setLocationInfo} from '../../utils/util';
 // const LocationIcon =  '../../assets/imgs/location_icon.png'
 import QQMapWX from '../../utils/qqmap-wx-jssdk.min.js';
 
@@ -158,7 +158,7 @@ Page({
             this.addMarkTextEvent();
         });
     },
-    reverseLatLonToAddress() {
+    onAddMarkerTap() {
         const that = this
         console.log('立即标点')
         qqmapsdk.reverseGeocoder({
@@ -172,8 +172,13 @@ Page({
                 const address = res.address;
                 console.log({address})
                 // var mks = [];
+                setLocationInfo({
+                  lng: that.data.location.longitude,
+                  lat: that.data.location.latitude,
+                  address,
+                })
                 wx.navigateTo({
-                    url: '../type_select/type_select',
+                  url: '../type_select/type_select',
                 })
 
                 //当get_poi为0时或者为不填默认值时，检索目标位置，按需使用

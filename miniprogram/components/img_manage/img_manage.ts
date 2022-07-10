@@ -52,7 +52,7 @@ Component({
                 }, 1000)
                 return
               }
-              const url = data.code.fullurl as String
+              const url = data.data.fullurl as String
               // 上传完成需要更新 fileList
               const { imgList = [] } = that.data
               //  @ts-ignore

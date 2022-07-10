@@ -1,4 +1,4 @@
-
+// login.ts
 import {
   getLocationInfo,
   clearLocationInfo,
@@ -9,10 +9,14 @@ import Toast from '@vant/weapp/toast/toast';
 Page({
     data: {
         buildingTypeList: [
-            {name: '中/高层住宅（7层以上）'},
-            {name: '多层住宅'},
-            {name: '自建房'},
-            {name: '别墅'},
+            {name: '办公建筑'},
+            {name: '商业建筑'},
+            {name: '旅游建筑'},
+            {name: '科教文卫建筑'},
+            {name: '通信建筑'},
+            {name: '交通运输类建筑'},
+            {name: '工厂'},
+            {name: '仓库、物流基地'},
             {name: '其他'},
         ],
         chargeOptionList: [
@@ -22,6 +26,11 @@ Page({
         chargingMmethodOptionList: [
             {name: '人工', value: 1,},
             {name: '智能', value: 2,},
+        ],
+        areaLevelOptionList: [
+          {name: '一类区', value: 1,},
+          {name: '二类区', value: 2,},
+          {name: '三类区', value: 3,},
         ],
         remarkAutoResizeOption: {
           maxHeight: 400,
@@ -35,29 +44,36 @@ Page({
         // 选择建筑类型（单选）
         building_type: undefined,  //  建筑类型
 
-        // 小区基本信息
-        community_name: undefined, //  小区名称
-        residential_building_area: undefined, //   住宅建筑面积(平方米)
+        // 基本信息
+        building_name: undefined, //  建筑名称
+        total_construction_area_square_meters: undefined, //   总建筑面积平方米
         year_built: undefined, //   建成年份
-        total_number_houses: undefined, //   房屋总套数
-        total_number_suites_occupied: undefined, //   已入住总套数
 
         // 配建（划线）停车位情况
         underground_parking_space: undefined, //   地下停车位
         ground_parking_space: undefined, // 地上停车位
         total_parking_space: undefined, //  总停车位
         including_open_parking_spaces: undefined, //  其中对外开放车位
+        mechanical_parking_space: undefined,  //  机械停车位
+
+        //  允许停放时间（单选）
+        opening_hours: undefined, //  0-未知 1-全天开放2-分时段开放
+        dayparting: undefined,
 
         // 收费方式及收费标准（拍摄停车收费公示牌照片)
         is_charge: undefined,   //  是否收费 1-收费 0-否
         charging_method: undefined, //  收费方式  1-人工 2-智能
         barrier_brand: undefined, //    道闸品牌
         monthly_charge: undefined, //  包月收费(元/月)
-        free_time: undefined, //   免费时长(分钟)
-        charge_per_time_during_the_day: undefined, //   白天按次收费(元/次)
-        charge_on_time_during_the_day: undefined, //   白天按时收费(元/小时)
-        charge_per_night: undefined, //   夜间按次收费(元/次)
-        charge_on_time_at_night: undefined, //   夜间按时收费(元/小时)
+        area_level: undefined,//  区域等级
+        first_period_hour: undefined, //   首时段
+        first_period_hour_money: undefined, //  首时段小时元
+        first_period_hour_per: undefined, //  每小时
+        first_period_day_hour_money: undefined, //  白天后时段 首时段小时元
+        first_period_day_hour_per: undefined, //  白天后时段 每小时
+        first_period_night_hour_money: undefined, //  
+        first_period_night_hour_per: undefined, //  
+        daily_maximum_charge: undefined, //   日最高收费
         other: undefined, //    其它
 
         //  停车需求信息
@@ -83,7 +99,7 @@ Page({
           url: '/api/tag/info',
           data: {
             id,
-            type: 1,
+            type: 2,
           },
           method: 'GET',
           successCallBack: (res: any) => {
@@ -112,6 +128,7 @@ Page({
           buildingTypeList,
           chargeOptionList,
           chargingMmethodOptionList,
+          areaLevelOptionList,
           remarkAutoResizeOption,
           isReadonly,
           id,
@@ -156,7 +173,7 @@ Page({
         }
         
         Request({
-          url: id ? `/api/tag/livemod` : '/api/tag/liveadd',
+          url: id ? '/api/tag/nonlivemod' : '/api/tag/nonliveadd',
           data: query,
           method: id ? "PUT" : 'POST',
           successCallBack: (data: any = {}) => {

@@ -1,0 +1,349 @@
+<view class="container ">
+    <view class="itemWrapper">
+        <view class="title">选择类型（单选）</view>
+        <view class="itemContent radioGroupWrapper" >
+            <van-radio-group
+                direction="horizontal"
+                readonly="{{isReadonly}}"
+                model:value="{{parking_facilities_type}}"
+            >
+                <van-radio
+                    custom-class="radio"
+                    wx:for="{{buildingTypeList}}"
+                    wx:key="name"
+                    wx:for-item="item"
+                    name="{{item.name}}"
+                >
+                    {{item.name}}
+                </van-radio>
+            </van-radio-group>
+        </view>
+    </view>
+
+    <view class="itemWrapper">
+        <view class="title">基本信息</view>
+        <van-cell-group>
+            <van-field
+                clearable
+                label="停车设施名称"
+                placeholder="请输入建筑名称"
+                input-align="right"
+                readonly="{{isReadonly}}"
+                model:value="{{parking_facilities_name}}"
+            />
+            <van-field
+                clearable
+                label="总建筑面积平方米"
+                placeholder="请输入平方米"
+                input-align="right"
+                type="number"
+                title-width="200px"
+                readonly="{{isReadonly}}"
+                model:value="{{total_construction_area_square_meters}}"
+            />
+        </van-cell-group>
+    </view>
+
+    <view class="itemWrapper">
+        <view class="title">停车位情况</view>
+        <van-cell-group>
+            <van-field
+                clearable
+                label="地下停车位"
+                placeholder="请输入个数"
+                input-align="right"
+                type="number"
+                readonly="{{isReadonly}}"
+                model:value="{{underground_parking_space}}"
+            />
+            <van-field
+                clearable
+                label="地面停车位"
+                placeholder="请输入个数"
+                input-align="right"
+                type="number"
+                readonly="{{isReadonly}}"
+                model:value="{{ground_parking_space}}"
+            />
+            <van-field
+                clearable
+                label="总停车位"
+                placeholder="请输入个数"
+                input-align="right"
+                type="number"
+                readonly="{{isReadonly}}"
+                model:value="{{total_parking_space}}"
+            />
+            <van-field
+                clearable
+                label="机械停车位"
+                placeholder="请输入个数"
+                input-align="right"
+                type="number"
+                title-width="200px"
+                readonly="{{isReadonly}}"
+                model:value="{{mechanical_parking_space}}"
+            />
+        </van-cell-group>
+    </view>
+
+    <view class="itemWrapper">
+      <opening-hours
+        model:opening_hours="{{opening_hours}}"
+        model:dayparting="{{dayparting}}"
+      />
+    </view>
+
+    <view class="itemWrapper">
+        <view class="title">收费方式及收费标准（小型车)</view>
+        <van-cell-group>
+            <van-cell
+                title="是否收费"
+            >
+                <van-icon slot="right-icon" >
+                    <van-radio-group
+                        direction="horizontal"
+                        readonly="{{isReadonly}}"
+                        model:value="{{is_charge_light_duty_vehicle}}"
+                    >
+                        <van-radio
+                            custom-class="radio"
+                            wx:for="{{chargeOptionList}}"
+                            wx:key="name"
+                            wx:for-item="item"
+                            name="{{item.value}}"
+                        >
+                            {{item.name}}
+                        </van-radio>
+                    </van-radio-group>
+                </van-icon>
+            </van-cell>
+            <van-cell
+                title="收费方式"
+            >
+                <van-icon slot="right-icon" >
+                    <van-radio-group
+                        direction="horizontal"
+                        readonly="{{isReadonly}}"
+                        model:value="{{charging_method_light_duty_vehicle}}"
+                    >
+                        <van-radio
+                            custom-class="radio"
+                            wx:for="{{chargingMmethodOptionList}}"
+                            wx:key="name"
+                            wx:for-item="item"
+                            name="{{item.value}}"
+                        >
+                            {{item.name}}
+                        </van-radio>
+                    </van-radio-group>
+                </van-icon>
+            </van-cell>
+            <van-field
+                clearable
+                label="道闸品牌"
+                placeholder="请输入道闸品牌 "
+                input-align="right"
+                readonly="{{isReadonly}}"
+                model:value="{{barrier_brand_light_duty_vehicle}}"
+            />
+            <van-cell
+                title="区域等级"
+            >
+                <van-icon slot="right-icon" >
+                    <van-radio-group
+                        direction="horizontal"
+                        readonly="{{isReadonly}}"
+                        model:value="{{area_level_light_duty_vehicle}}"
+                    >
+                        <van-radio
+                            custom-class="radio"
+                            wx:for="{{areaLevelOptionList}}"
+                            wx:key="name"
+                            wx:for-item="item"
+                            name="{{item.value}}"
+                        >
+                            {{item.name}}
+                        </van-radio>
+                    </van-radio-group>
+                </van-icon>
+            </van-cell>
+
+            <first-period-hour
+              model:first_period_hour="{{first_period_hour_light_duty_vehicle}}"
+              model:first_period_hour_money="{{first_period_hour_money_light_duty_vehicle}}"
+              model:first_period_hour_per="{{first_period_hour_per_light_duty_vehicle}}"
+              model:first_period_day_hour_money="{{first_period_day_hour_money_light_duty_vehicle}}"
+              model:first_period_day_hour_per="{{first_period_day_hour_per_light_duty_vehicle}}"
+              model:first_period_night_hour_money="{{first_period_night_hour_money_light_duty_vehicle}}"
+              model:first_period_night_hour_per="{{first_period_night_hour_per_light_duty_vehicle}}"
+             />
+
+             <van-field
+                clearable
+                label="日最高收费"
+                placeholder="请输入价格"
+                input-align="right"
+                type="number"
+                readonly="{{isReadonly}}"
+                model:value="{{daily_maximum_charge_light_duty_vehicle}}"
+            />
+            <van-field
+                clearable
+                label="其他"
+                placeholder="请输入内容"
+                input-align="right"
+                type="number"
+                readonly="{{isReadonly}}"
+                model:value="{{other_light_duty_vehicle}}"
+            />
+        </van-cell-group>
+    </view>
+
+    <view class="itemWrapper">
+        <view class="title">收费方式及收费标准（大型车)</view>
+        <van-cell-group>
+            <van-cell
+                title="是否收费"
+            >
+                <van-icon slot="right-icon" >
+                    <van-radio-group
+                        direction="horizontal"
+                        readonly="{{isReadonly}}"
+                        model:value="{{is_charge_large_vehicle}}"
+                    >
+                        <van-radio
+                            custom-class="radio"
+                            wx:for="{{chargeOptionList}}"
+                            wx:key="name"
+                            wx:for-item="item"
+                            name="{{item.value}}"
+                        >
+                            {{item.name}}
+                        </van-radio>
+                    </van-radio-group>
+                </van-icon>
+            </van-cell>
+            <van-cell
+                title="收费方式"
+            >
+                <van-icon slot="right-icon" >
+                    <van-radio-group
+                        direction="horizontal"
+                        readonly="{{isReadonly}}"
+                        model:value="{{charging_method_large_vehicle}}"
+                    >
+                        <van-radio
+                            custom-class="radio"
+                            wx:for="{{chargingMmethodOptionList}}"
+                            wx:key="name"
+                            wx:for-item="item"
+                            name="{{item.value}}"
+                        >
+                            {{item.name}}
+                        </van-radio>
+                    </van-radio-group>
+                </van-icon>
+            </van-cell>
+            <van-field
+                clearable
+                label="道闸品牌"
+                placeholder="请输入道闸品牌 "
+                input-align="right"
+                readonly="{{isReadonly}}"
+                model:value="{{barrier_brand_large_vehicle}}"
+            />
+            <van-cell
+                title="区域等级"
+            >
+                <van-icon slot="right-icon" >
+                    <van-radio-group
+                        direction="horizontal"
+                        readonly="{{isReadonly}}"
+                        model:value="{{area_level_large_vehicle}}"
+                    >
+                        <van-radio
+                            custom-class="radio"
+                            wx:for="{{areaLevelOptionList}}"
+                            wx:key="name"
+                            wx:for-item="item"
+                            name="{{item.value}}"
+                        >
+                            {{item.name}}
+                        </van-radio>
+                    </van-radio-group>
+                </van-icon>
+            </van-cell>
+
+            <first-period-hour
+              model:first_period_hour="{{first_period_hour_large_vehicle}}"
+              model:first_period_hour_money="{{first_period_hour_money_large_vehicle}}"
+              model:first_period_hour_per="{{first_period_hour_per_large_vehicle}}"
+              model:first_period_day_hour_money="{{first_period_day_hour_money_large_vehicle}}"
+              model:first_period_day_hour_per="{{first_period_day_hour_per_large_vehicle}}"
+              model:first_period_night_hour_money="{{first_period_night_hour_money_large_vehicle}}"
+              model:first_period_night_hour_per="{{first_period_night_hour_per_large_vehicle}}"
+             />
+
+             <van-field
+                clearable
+                label="日最高收费"
+                placeholder="请输入价格"
+                input-align="right"
+                type="number"
+                readonly="{{isReadonly}}"
+                model:value="{{daily_maximum_charge_large_vehicle}}"
+            />
+            <van-field
+                clearable
+                label="其他"
+                placeholder="请输入内容"
+                input-align="right"
+                type="number"
+                readonly="{{isReadonly}}"
+                model:value="{{other_large_vehicle}}"
+            />
+        </van-cell-group>
+    </view>
+
+    <view class="itemWrapper">
+      <park-need-info
+        model:first_recording_time="{{first_recording_time}}"
+        model:first_number_of_crossed_stops="{{first_number_of_crossed_stops}}"
+        model:first_number_of_unmarked_stops="{{first_number_of_unmarked_stops}}"
+        model:peak_recording_time="{{peak_recording_time}}"
+        model:peak_number_of_crossed_stops="{{peak_number_of_crossed_stops}}"
+        model:peak_number_of_unmarked_stops="{{peak_number_of_unmarked_stops}}"
+      />
+    </view>
+
+    <view class="itemWrapper">
+      <img-manage
+        imgList="{{images}}"
+        bind:onImgListChange="onImgChange"
+       />
+    </view>
+
+    <view class="itemWrapper">
+        <view class="title">备注</view>
+        <van-field
+          model:value="{{remark}}"
+          type="textarea"
+          placeholder="请输入备注信息"
+          autosize="{{remarkAutoResizeOption}}"
+          border="{{false}}"
+        />
+    </view>
+
+    <view class="btn_wrapper">
+        <van-button
+            class="button"
+            type="primary"
+            bindtap="onSubmitBtnTap"
+        >
+          保 存
+        </van-button>
+    </view>
+
+    <van-toast id="van-toast" />
+</view>

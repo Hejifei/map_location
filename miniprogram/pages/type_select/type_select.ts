@@ -7,4 +7,10 @@ Page({
   onLoad() {
     
   },
+  changePageToForm: (e: any) => {
+    const url = e.currentTarget.dataset.url
+    wx.navigateTo({
+      url,
+  })
+  } 
 })

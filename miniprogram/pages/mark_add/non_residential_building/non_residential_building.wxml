@@ -21,25 +21,25 @@
     </view>
 
     <view class="itemWrapper">
-        <view class="title">小区基本信息</view>
+        <view class="title">基本信息</view>
         <van-cell-group>
             <van-field
                 clearable
-                label="小区名称"
-                placeholder="请输入小区名称"
+                label="建筑名称"
+                placeholder="请输入建筑名称"
                 input-align="right"
                 readonly="{{isReadonly}}"
-                model:value="{{community_name}}"
+                model:value="{{building_name}}"
             />
             <van-field
                 clearable
-                label="住宅建筑面积（平方米）"
+                label="总建筑面积平方米"
                 placeholder="请输入平方米"
                 input-align="right"
                 type="number"
                 title-width="200px"
                 readonly="{{isReadonly}}"
-                model:value="{{residential_building_area}}"
+                model:value="{{total_construction_area_square_meters}}"
             />
             <van-field
                 clearable
@@ -49,24 +49,6 @@
                 type="number"
                 readonly="{{isReadonly}}"
                 model:value="{{year_built}}"
-            />
-            <van-field
-                clearable
-                label="房屋总套数"
-                placeholder="请输入房屋总套"
-                input-align="right"
-                type="number"
-                readonly="{{isReadonly}}"
-                model:value="{{total_number_houses}}"
-            />
-            <van-field
-                clearable
-                label="已入住总套数"
-                placeholder="请输入入住总套数"
-                input-align="right"
-                type="number"
-                readonly="{{isReadonly}}"
-                model:value="{{total_number_suites_occupied}}"
             />
         </van-cell-group>
     </view>
@@ -111,7 +93,24 @@
                 readonly="{{isReadonly}}"
                 model:value="{{including_open_parking_spaces}}"
             />
+            <van-field
+                clearable
+                label="机械停车位"
+                placeholder="请输入个数"
+                input-align="right"
+                type="number"
+                title-width="200px"
+                readonly="{{isReadonly}}"
+                model:value="{{mechanical_parking_space}}"
+            />
         </van-cell-group>
+    </view>
+
+    <view class="itemWrapper">
+      <opening-hours
+        model:opening_hours="{{opening_hours}}"
+        model:dayparting="{{dayparting}}"
+      />
     </view>
 
     <view class="itemWrapper">
@@ -176,50 +175,46 @@
                 readonly="{{isReadonly}}"
                 model:value="{{monthly_charge}}"
             />
-            <van-field
+            <van-cell
+                title="区域等级"
+            >
+                <van-icon slot="right-icon" >
+                    <van-radio-group
+                        direction="horizontal"
+                        readonly="{{isReadonly}}"
+                        model:value="{{area_level}}"
+                    >
+                        <van-radio
+                            custom-class="radio"
+                            wx:for="{{areaLevelOptionList}}"
+                            wx:key="name"
+                            wx:for-item="item"
+                            name="{{item.value}}"
+                        >
+                            {{item.name}}
+                        </van-radio>
+                    </van-radio-group>
+                </van-icon>
+            </van-cell>
+
+            <first-period-hour
+              model:first_period_hour="{{first_period_hour}}"
+              model:first_period_hour_money="{{first_period_hour_money}}"
+              model:first_period_hour_per="{{first_period_hour_per}}"
+              model:first_period_day_hour_money="{{first_period_day_hour_money}}"
+              model:first_period_day_hour_per="{{first_period_day_hour_per}}"
+              model:first_period_night_hour_money="{{first_period_night_hour_money}}"
+              model:first_period_night_hour_per="{{first_period_night_hour_per}}"
+             />
+
+             <van-field
                 clearable
-                label="免费时长"
-                placeholder="请输入时间（分钟）"
+                label="日最高收费"
+                placeholder="请输入价格"
                 input-align="right"
                 type="number"
                 readonly="{{isReadonly}}"
-                model:value="{{free_time}}"
-            />
-            <van-field
-                clearable
-                label="白天按次收费"
-                placeholder="请输入价格（元/次）"
-                input-align="right"
-                type="number"
-                readonly="{{isReadonly}}"
-                model:value="{{charge_per_time_during_the_day}}"
-            />
-            <van-field
-                clearable
-                label="白天按时收费"
-                placeholder="请输入价格（元/小时）"
-                input-align="right"
-                type="number"
-                readonly="{{isReadonly}}"
-                model:value="{{charge_on_time_during_the_day}}"
-            />
-            <van-field
-                clearable
-                label="夜间按次收费"
-                placeholder="请输入价格（元/次）"
-                input-align="right"
-                type="number"
-                readonly="{{isReadonly}}"
-                model:value="{{charge_per_night}}"
-            />
-            <van-field
-                clearable
-                label="夜间按时收费"
-                placeholder="请输入价格（元/小时）"
-                input-align="right"
-                type="number"
-                readonly="{{isReadonly}}"
-                model:value="{{charge_on_time_at_night}}"
+                model:value="{{daily_maximum_charge}}"
             />
             <van-field
                 clearable

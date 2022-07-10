@@ -1,19 +1,20 @@
-
+// login.ts
 import {
   getLocationInfo,
   clearLocationInfo,
 } from '../../../utils/util'
+import {MARK_TYPE_OFF_STREET_PUBLIC} from '../../../common/index'
 import {Request} from '../../../utils/request'
 import Toast from '@vant/weapp/toast/toast';
 
 Page({
     data: {
         buildingTypeList: [
-            {name: '中/高层住宅（7层以上）'},
-            {name: '多层住宅'},
-            {name: '自建房'},
-            {name: '别墅'},
-            {name: '其他'},
+            {name: '地面停车场'},
+            {name: '地下停车场'},
+            {name: '停车楼'},
+            {name: '机械停车设施'},
+            {name: '混合类型'},
         ],
         chargeOptionList: [
             {name: '是', value: 1,},
@@ -22,6 +23,11 @@ Page({
         chargingMmethodOptionList: [
             {name: '人工', value: 1,},
             {name: '智能', value: 2,},
+        ],
+        areaLevelOptionList: [
+          {name: '一类区', value: 1,},
+          {name: '二类区', value: 2,},
+          {name: '三类区', value: 3,},
         ],
         remarkAutoResizeOption: {
           maxHeight: 400,
@@ -32,33 +38,52 @@ Page({
         lng: '',    //  经度
         lat: '',    //  纬度
         address: '',    //  位置地址信息
-        // 选择建筑类型（单选）
-        building_type: undefined,  //  建筑类型
+        // 选择类型（单选）
+        parking_facilities_type: undefined,  //  停车设施类型
 
-        // 小区基本信息
-        community_name: undefined, //  小区名称
-        residential_building_area: undefined, //   住宅建筑面积(平方米)
-        year_built: undefined, //   建成年份
-        total_number_houses: undefined, //   房屋总套数
-        total_number_suites_occupied: undefined, //   已入住总套数
+        // 基本信息
+        parking_facilities_name: undefined, //  停车设施名称
+        total_construction_area_square_meters: undefined, //   总建筑面积平方米
 
-        // 配建（划线）停车位情况
+        // 停车位情况
         underground_parking_space: undefined, //   地下停车位
         ground_parking_space: undefined, // 地上停车位
         total_parking_space: undefined, //  总停车位
-        including_open_parking_spaces: undefined, //  其中对外开放车位
+        mechanical_parking_space: undefined,  //  机械停车位
 
-        // 收费方式及收费标准（拍摄停车收费公示牌照片)
-        is_charge: undefined,   //  是否收费 1-收费 0-否
-        charging_method: undefined, //  收费方式  1-人工 2-智能
-        barrier_brand: undefined, //    道闸品牌
-        monthly_charge: undefined, //  包月收费(元/月)
-        free_time: undefined, //   免费时长(分钟)
-        charge_per_time_during_the_day: undefined, //   白天按次收费(元/次)
-        charge_on_time_during_the_day: undefined, //   白天按时收费(元/小时)
-        charge_per_night: undefined, //   夜间按次收费(元/次)
-        charge_on_time_at_night: undefined, //   夜间按时收费(元/小时)
-        other: undefined, //    其它
+        //  允许停放时间（单选）
+        opening_hours: undefined, //  0-未知 1-全天开放2-分时段开放
+        dayparting: undefined,
+
+        //  收费方式及收费标准（小型车)
+        is_charge_light_duty_vehicle: undefined,   //  是否收费 1-收费 0-否
+        charging_method_light_duty_vehicle: undefined, //  收费方式  1-人工 2-智能
+        barrier_brand_light_duty_vehicle: undefined, //    道闸品牌
+        area_level_light_duty_vehicle: undefined,//  区域等级
+        first_period_hour_light_duty_vehicle: undefined, //   首时段
+        first_period_hour_money_light_duty_vehicle: undefined, //  首时段小时元
+        first_period_hour_per_light_duty_vehicle: undefined, //  每小时
+        first_period_day_hour_money_light_duty_vehicle: undefined, //  白天后时段 首时段小时元
+        first_period_day_hour_per_light_duty_vehicle: undefined, //  白天后时段 每小时
+        first_period_night_hour_money_light_duty_vehicle: undefined, //  夜晚后时段 首时段小时元
+        first_period_night_hour_per_light_duty_vehicle: undefined, //  夜晚后时段 每小时
+        daily_maximum_charge_light_duty_vehicle: undefined, //   日最高收费
+        other_light_duty_vehicle: undefined, //    其它
+
+        // 收费方式及收费标准（大型车)
+        is_charge_large_vehicle: undefined,   //  是否收费 1-收费 0-否
+        charging_method_large_vehicle: undefined, //  收费方式  1-人工 2-智能
+        barrier_brand_large_vehicle: undefined, //    道闸品牌
+        area_level_large_vehicle: undefined,//  区域等级
+        first_period_hour_large_vehicle: undefined, //   首时段
+        first_period_hour_money_large_vehicle: undefined, //  首时段小时元
+        first_period_hour_per_large_vehicle: undefined, //  每小时
+        first_period_day_hour_money_large_vehicle: undefined, //  白天后时段 首时段小时元
+        first_period_day_hour_per_large_vehicle: undefined, //  白天后时段 每小时
+        first_period_night_hour_money_large_vehicle: undefined, //  夜晚后时段 首时段小时元
+        first_period_night_hour_per_large_vehicle: undefined, //  夜晚后时段 每小时
+        daily_maximum_charge_large_vehicle: undefined, //   日最高收费
+        other_large_vehicle: undefined, //    其它
 
         //  停车需求信息
         first_recording_time: undefined, //   第一次记录时间   
@@ -83,7 +108,7 @@ Page({
           url: '/api/tag/info',
           data: {
             id,
-            type: 1,
+            type: MARK_TYPE_OFF_STREET_PUBLIC,
           },
           method: 'GET',
           successCallBack: (res: any) => {
@@ -112,6 +137,7 @@ Page({
           buildingTypeList,
           chargeOptionList,
           chargingMmethodOptionList,
+          areaLevelOptionList,
           remarkAutoResizeOption,
           isReadonly,
           id,
@@ -156,7 +182,7 @@ Page({
         }
         
         Request({
-          url: id ? `/api/tag/livemod` : '/api/tag/liveadd',
+          url: id ? '/api/tag/offroadmod' : '/api/tag/offroadadd',
           data: query,
           method: id ? "PUT" : 'POST',
           successCallBack: (data: any = {}) => {

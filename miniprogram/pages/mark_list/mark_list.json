@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "标点记录",
-  "usingComponents": {}
+  "usingComponents": {
+    "van-toast": "@vant/weapp/toast/index"
+  }
 }

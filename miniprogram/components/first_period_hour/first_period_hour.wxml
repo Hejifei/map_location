@@ -1,0 +1,100 @@
+<!--logs.wxml-->
+
+<view class="itemWrapper">
+  <!-- <view class="van-cell-text">首时段</view> -->
+  <van-cell title="首时段" border="{{ false }}" custom-style="padding-bottom: 0;"  />
+  <van-cell
+    custom-style=""
+    title-width="140"
+  >
+    <view slot="title" class="innerHourWrapper">
+      <van-field
+        model:value="{{first_period_hour}}"
+        placeholder="请输入数字"
+        border="{{false}}"
+        label-class="inputWrapper"
+        custom-style="padding: 0; width: 75px;"
+      />
+      <view class="textWrapper">
+        小时内
+      </view>
+    </view>
+    <van-icon slot="right-icon" style="flex: 1;">
+      <view class="innerHourRightWrapper">
+        <van-field
+          model:value="{{first_period_hour_money}}"
+          placeholder="请输入数字"
+          border="{{false}}"
+          input-align="right"
+          custom-style="padding: 0; flex: 1; padding-right: 2px;"
+        />
+        元/
+        <van-field
+          model:value="{{first_period_hour_per}}"
+          placeholder="请输入数字"
+          border="{{false}}"
+          input-align="right"
+          custom-style="padding: 0;width: 80px; padding-right: 2px;"
+        />
+        时
+      </view>
+      
+    </van-icon>
+  </van-cell>
+
+  <van-cell
+    custom-style=""
+    title-width="140"
+    title="白天后时段"
+  >
+    <van-icon slot="right-icon" style="flex: 1;">
+      <view class="innerHourRightWrapper">
+        <van-field
+          model:value="{{first_period_day_hour_money}}"
+          placeholder="请输入数字"
+          border="{{false}}"
+          input-align="right"
+          custom-style="padding: 0; flex: 1; padding-right: 2px;"
+        />
+        元/
+        <van-field
+          model:value="{{first_period_day_hour_per}}"
+          placeholder="请输入数字"
+          border="{{false}}"
+          input-align="right"
+          custom-style="padding: 0;width: 80px; padding-right: 2px;"
+        />
+        时
+      </view>
+    </van-icon>
+  </van-cell>
+
+  <van-cell
+    custom-style=""
+    title-width="140"
+    title="夜间后时段"
+  >
+    <van-icon slot="right-icon" style="flex: 1;">
+      <view class="innerHourRightWrapper">
+        <van-field
+          model:value="{{first_period_night_hour_money}}"
+          placeholder="请输入数字"
+          border="{{false}}"
+          input-align="right"
+          custom-style="padding: 0; flex: 1; padding-right: 2px;"
+        />
+        元/
+        <van-field
+          model:value="{{first_period_night_hour_per}}"
+          placeholder="请输入数字"
+          border="{{false}}"
+          input-align="right"
+          custom-style="padding: 0;width: 80px; padding-right: 2px;"
+        />
+        时
+      </view>
+    </van-icon>
+  </van-cell>
+
+</view>
+

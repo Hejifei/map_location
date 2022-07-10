@@ -29,6 +29,22 @@ export const setUserToken = (info: string) => {
     return wx.setStorageSync('token', info)
 }
 
+export const getLocationInfo = () => {
+  return wx.getStorageSync('locationInfo')
+}
+
+export const setLocationInfo = (info: {
+  lng: number,
+  lat: number,
+  address: string,
+}) => {
+  return wx.setStorageSync('locationInfo', info)
+}
+
+export const clearLocationInfo = () => {
+  return wx.removeStorageSync('locationInfo')
+}
+
 export const parseApiUrl = (url: string): string => {
   const api = REQUEST_URL
   return `${api}${url}`

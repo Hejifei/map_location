@@ -1,0 +1,61 @@
+<!--logs.wxml-->
+
+<view class="itemWrapper">
+    <view class="title">允许停放时间（单选）</view>
+    <view class="itemContent radioGroupWrapper" >
+      <van-radio-group
+        model:value="{{opening_hours}}"
+      >
+        <van-cell-group>
+          <van-cell
+            custom-style="padding-right: 0; padding-left: 0;"
+          >
+            <van-radio
+              slot="title"
+              name="1"
+            >
+              全天开放
+            </van-radio>
+          </van-cell>
+          <van-cell
+            custom-style="padding-right: 0; padding-left: 0;"
+          >
+            <van-radio
+              slot="title"
+              name="2"
+            >
+              分时段开放
+            </van-radio>
+            <van-icon slot="right-icon" >
+              <van-field
+                model:value="{{dayparting}}"
+                placeholder="请选择开放时间"
+                border="{{false}}"
+                readonly
+                custom-style="padding: 0;"
+                input-class="openHourPartInput"
+                input-align="right"
+                bindtap="onTimeSelectTap"
+              />
+            </van-icon>
+          </van-cell>
+        </van-cell-group>
+      </van-radio-group>
+    </view>
+
+    <van-popup
+      show="{{timeSelectVisible}}"
+      position="bottom"
+      custom-style="height: 350px;"
+      bind:close="onTimeSelectClose"
+    >
+        <van-datetime-picker
+          type="time"
+          value="{{dayparting}}"
+          bind:change="onTimeChange"
+          bind:confirm="onTimeSelectConfirm"
+          bind:cancel="onTimeSelectClose"
+          />
+    </van-popup>
+</view>
+

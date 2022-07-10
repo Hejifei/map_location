@@ -11,8 +11,8 @@
         bindregionchange="onChangeRegion"
         bindpoitap="onTapPoi"
         show-location="{{showPosition}}"
-        bindmarkertap="reverseLatLonToAddress"
-        bindcallouttap="reverseLatLonToAddress"
+        bindmarkertap="onAddMarkerTap"
+        bindcallouttap="onAddMarkerTap"
     > 
     </map>
     <view class="loginWrapper" wx:if="isLocationPersionAllowed">

@@ -4,6 +4,8 @@
     wx:key="timeStamp"
     wx:for-item="item"
     class="type_item_wrapper"
+    bindtap="changePageToForm"
+    data-url="{{item.url}}"
    >
     <image
         src="{{item.img_src}}"

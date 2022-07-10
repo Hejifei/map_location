@@ -17,23 +17,31 @@
     <view class="address">{{item.address}}</view>
     <view class="info_line_wrapper">
         <image class="icon" src="../../assets/imgs/user_icon.png" />
-        <view class="name">{{item.userName}}</view>
-        <view class="time">{{item.time}}</view>
+        <view class="name">{{item.user.username}}</view>
+        <view class="time">{{item.create_time_text}}</view>
         创建
     </view>
     <view class="action_line">
         <van-button
             class="button"
             type="primary"
+            data-id="{{item.id}}"
+            data-lat="{{item.lat}}"
+            data-lng="{{item.lng}}"
         >
             查看标点
         </van-button>
         <van-button
             class="button"
             type="info"
+            data-id="{{item.id}}"
+            data-url="{{item.typeInfo.url}}"
+            bindtap="onMarkDetailTap"
         >
             查看详情
         </van-button>
     </view>
   </view>
+
+  <van-toast id="van-toast" />
 </view>
