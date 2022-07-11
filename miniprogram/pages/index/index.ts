@@ -4,20 +4,20 @@ import {getUserToken, setLocationInfo} from '../../utils/util';
 // const LocationIcon =  '../../assets/imgs/location_icon.png'
 import QQMapWX from '../../utils/qqmap-wx-jssdk.min.js';
 
-const MARK_NOW_URL = 'https://636c-cloud1-2grtkpnv263496be-1307461040.tcb.qcloud.la/mark_now.png?sign=58e307bd49226e9dd78b0d8a5e354a0a&t=1657528230'
+// const MARK_NOW_URL = 'https://636c-cloud1-2grtkpnv263496be-1307461040.tcb.qcloud.la/mark_now.png?sign=58e307bd49226e9dd78b0d8a5e354a0a&t=1657528230'
 // const MARK_NOW_URL = '../../assets/imgs/mark_now.png'
-// const MARK_NOW_URL = 'http://gmap.dev.zhangxinkeji.com/uploads/20220711/5f050d1628aed54c766e8f0d11ea434c.png'
+const MARK_NOW_URL = 'https://gmap.dev.zhangxinkeji.com/uploads/20220711/5f050d1628aed54c766e8f0d11ea434c.png'
 
 const defaultMarkConfig = {
     id: 0,
-    iconPath: `${CDN_PATH}/Marker3_Activated@3x.png`,
-    // iconPath: LocationIcon,
+    // iconPath: `${CDN_PATH}/Marker3_Activated@3x.png`,
+    iconPath: MARK_NOW_URL,
     latitude: 31.32,
     longitude: 120.62,
-    width: 30,
-    height: 30,
-    // width: 20,
-    // height: 20
+    // width: 30,
+    // height: 30,
+    width: 80,
+    height: 36,
     // callout: {
     //     display: 'ALWAYS',
     //     content: '立即标点 >',
@@ -50,6 +50,7 @@ Page({
         isRegionChanged: false, //  视野是否变换,若变化了,显示mark并设置中心点坐标为标注点
         // isLoginedIn: true,
         isLoginedIn: false,
+        // markers: [],
         markers: [defaultMarkConfig],
         timer: 0,
     },
@@ -81,7 +82,17 @@ Page({
                 isReadOnly: true,
                 isLocationPersionAllowed: false,
                 markers: [{
-                    ...defaultMarkConfig,
+                    id: 0,
+                    iconPath: `${CDN_PATH}/Marker3_Activated@3x.png`,
+                    width: 30,
+                    height: 30,
+                    // iconPath: MARK_NOW_URL,
+                    // width: 80,
+                    // height: 36,
+                    // latitude: 31.32,
+                    // longitude: 120.62,
+                    
+                    // ...defaultMarkConfig,
                     latitude: lat,
                     longitude: lng,
                     //  @ts-ignore
@@ -125,25 +136,35 @@ Page({
         if (this.data.timer) {
             clearTimeout(this.data.timer)
         }
+        const that = this
         if (event.type === 'end' && event.causedBy === 'drag') {
             const mapCtx = wx.createMapContext('map', this);
             mapCtx.getCenterLocation({
                 success: res => {
                     const latitude = res.latitude;
                     const longitude = res.longitude;
-                    this.setData({
+                    that.setData({
                         location: {
                             latitude: latitude,
                             longitude: longitude,
                         },
                         isRegionChanged: true,
                         markers: [{
-                            ...defaultMarkConfig,
+                            id: 0,
+                            iconPath: `${CDN_PATH}/Marker3_Activated@3x.png`,
+                            width: 30,
+                            height: 30,
+                            // iconPath: MARK_NOW_URL,
+                            // width: 80,
+                            // height: 36,
+                            // latitude: 31.32,
+                            // longitude: 120.62,
+                            // ...defaultMarkConfig,
                             latitude: latitude,
                             longitude: longitude,
                         }]
                     }, () => {
-                        this.addMarkTextEvent();
+                        that.addMarkTextEvent();
                     });
                 }
             });
@@ -151,18 +172,36 @@ Page({
     },
     //  移动0.5秒后显示立即标点文字
     addMarkTextEvent() {
+        
         if (this.data.isReadOnly) {
             return
         }
-        const markers = this.data.markers
-        const firstMarker = markers[0]
-        const timer = setTimeout(() => {
+        const that = this
+        // const markers = this.data.markers
+        // const firstMarker = markers[0]
+        // const {} = this.lo
+
+        setTimeout(() => {
             this.setData({
                 markers: [{
-                    ...firstMarker,
+                    id: 0,
+                    // iconPath: `${CDN_PATH}/Marker3_Activated@3x.png`,
+                    // width: 30,
+                    // height: 30,
                     iconPath: MARK_NOW_URL,
                     width: 80,
                     height: 36,
+                    // location: {
+                    //     latitude: lat,
+                    //     longitude: lng,
+                    // },
+                    latitude: that.data.location.latitude,
+                    longitude: that.data.location.longitude,
+                    // ...firstMarker,
+                    // id: 1,
+                    // iconPath: MARK_NOW_URL,
+                    // width: 80,
+                    // height: 36,
                     //  @ts-ignore
                     // callout: {
                     //     display: 'ALWAYS',
@@ -177,10 +216,10 @@ Page({
                     // }
                 }]
             })
-        }, 500)
-        this.setData({
-            timer,
-        })
+        }, 400)
+        // this.setData({
+        //     timer: timerTem,
+        // })
     },
     // poi点击回调
     onTapPoi(event: any) {
@@ -201,7 +240,16 @@ Page({
             },
             isRegionChanged: true,
             markers: [{
-                ...defaultMarkConfig,
+                // ...defaultMarkConfig,
+                id: 0,
+                iconPath: `${CDN_PATH}/Marker3_Activated@3x.png`,
+                width: 30,
+                height: 30,
+                // iconPath: MARK_NOW_URL,
+                // width: 80,
+                // height: 36,
+                // latitude: 31.32,
+                // longitude: 120.62,
                 latitude: latitude,
                 longitude: longitude,
             }]

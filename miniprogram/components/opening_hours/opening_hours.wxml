@@ -19,7 +19,8 @@
             </van-radio>
           </van-cell>
           <van-cell
-            custom-style="padding-right: 0; padding-left: 0;"
+            title-width="120"
+            custom-style="padding-right: 0; padding-left: 0;display: flex;"
           >
             <van-radio
                 icon-size="15px"
@@ -28,7 +29,7 @@
             >
               分时段开放
             </van-radio>
-            <van-icon slot="right-icon" >
+            <van-icon slot="right-icon"  style="flex: 1;" >
               <van-field
                 model:value="{{dayparting}}"
                 placeholder="请选择开放时间"
