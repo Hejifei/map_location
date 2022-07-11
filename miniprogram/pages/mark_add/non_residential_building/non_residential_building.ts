@@ -9,15 +9,15 @@ import Toast from '@vant/weapp/toast/toast';
 Page({
     data: {
         buildingTypeList: [
-            {name: '办公建筑'},
-            {name: '商业建筑'},
-            {name: '旅游建筑'},
-            {name: '科教文卫建筑'},
-            {name: '通信建筑'},
-            {name: '交通运输类建筑'},
-            {name: '工厂'},
-            {name: '仓库、物流基地'},
-            {name: '其他'},
+            {value: 1, name: '办公建筑'},
+            {value: 2, name: '商业建筑'},
+            {value: 3, name: '旅游建筑'},
+            {value: 4, name: '科教文卫建筑'},
+            {value: 5, name: '通信建筑'},
+            {value: 6, name: '交通运输类建筑'},
+            {value: 7, name: '工厂'},
+            {value: 8, name: '仓库、物流基地'},
+            {value: 9, name: '其他'},
         ],
         chargeOptionList: [
             {name: '是', value: 1,},
@@ -157,12 +157,10 @@ Page({
           data: this.data,
         })
         const images = (this.data.images || []).map(({url}) => url).join(',')
-        if (images) {
-          query = {
+        query = {
             ...query,
             //  @ts-ignore
             images,
-          }
         }
         if (id) {
           query = {
@@ -178,12 +176,14 @@ Page({
           method: id ? "PUT" : 'POST',
           successCallBack: (data: any = {}) => {
             Toast.success(data.msg)
-              if (!id) {
-                clearLocationInfo()
-              }
-              wx.navigateTo({
-                url: '../../mark_list/mark_list',
-              })
+                if (!id) {
+                    clearLocationInfo()
+                }
+                setTimeout(() => {
+                    wx.navigateTo({
+                        url: '/pages/mark_list/mark_list',
+                    })
+                }, 500)
           }
         })
 

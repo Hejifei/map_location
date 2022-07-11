@@ -1,108 +1,60 @@
 <view class="container ">
-    <view class="itemWrapper">
-        <view class="title">选择建筑类型（单选）</view>
-        <view class="itemContent radioGroupWrapper" >
-            <van-radio-group
-                direction="horizontal"
-                readonly="{{isReadonly}}"
-                model:value="{{building_type}}"
-            >
-                <van-radio
-                    icon-size="15px"
-                    custom-class="radio"
-                    wx:for="{{buildingTypeList}}"
-                    wx:key="name"
-                    wx:for-item="item"
-                    name="{{item.value}}"
-                >
-                    {{item.name}}
-                </van-radio>
-            </van-radio-group>
-        </view>
-    </view>
 
     <view class="itemWrapper">
-        <view class="title">基本信息</view>
+        <view class="title">沿线道路基本信息</view>
         <van-cell-group>
             <van-field
                 clearable
-                label="建筑名称"
-                placeholder="请输入建筑名称"
+                label="道路名称"
+                placeholder="请输入道路名称"
                 input-align="right"
                 readonly="{{isReadonly}}"
-                model:value="{{building_name}}"
+                model:value="{{road_name}}"
             />
             <van-field
                 clearable
-                label="总建筑面积平方米"
-                placeholder="请输入平方米"
+                label="道路起点"
+                placeholder="请输入道路起点"
                 input-align="right"
-                type="number"
-                title-width="160px"
                 readonly="{{isReadonly}}"
-                model:value="{{total_construction_area_square_meters}}"
+                model:value="{{starting_point_road}}"
             />
             <van-field
                 clearable
-                label="建成年份"
-                placeholder="请输入年份"
+                label="道路终点"
+                placeholder="请输入道路终点"
                 input-align="right"
-                type="number"
                 readonly="{{isReadonly}}"
-                model:value="{{year_built}}"
+                model:value="{{end_road}}"
             />
         </van-cell-group>
     </view>
 
     <view class="itemWrapper">
-        <view class="title">配建（划线）停车位情况</view>
+        <view class="title">建筑物基本信息</view>
         <van-cell-group>
             <van-field
                 clearable
-                label="地下停车位"
-                placeholder="请输入个数"
+                label="建筑物名称"
+                placeholder="请输入建筑物名称"
                 input-align="right"
-                type="number"
                 readonly="{{isReadonly}}"
-                model:value="{{underground_parking_space}}"
+                model:value="{{building_name}}"
             />
+        </van-cell-group>
+    </view>
+
+    <view class="itemWrapper">
+        <view class="title">停车位情况</view>
+        <van-cell-group>
             <van-field
                 clearable
-                label="地面停车位"
-                placeholder="请输入个数"
+                label="停车泊位数"
+                placeholder="请输入停车泊位数"
                 input-align="right"
                 type="number"
                 readonly="{{isReadonly}}"
-                model:value="{{ground_parking_space}}"
-            />
-            <van-field
-                clearable
-                label="总停车位"
-                placeholder="请输入个数"
-                input-align="right"
-                type="number"
-                readonly="{{isReadonly}}"
-                model:value="{{total_parking_space}}"
-            />
-            <van-field
-                clearable
-                label="其中对外开放车位"
-                placeholder="请输入个数"
-                input-align="right"
-                type="number"
-                title-width="200px"
-                readonly="{{isReadonly}}"
-                model:value="{{including_open_parking_spaces}}"
-            />
-            <van-field
-                clearable
-                label="机械停车位"
-                placeholder="请输入个数"
-                input-align="right"
-                type="number"
-                title-width="200px"
-                readonly="{{isReadonly}}"
-                model:value="{{mechanical_parking_space}}"
+                model:value="{{parking_spaces}}"
             />
         </van-cell-group>
     </view>
@@ -127,7 +79,6 @@
                         model:value="{{is_charge}}"
                     >
                         <van-radio
-                            icon-size="15px"
                             custom-class="radio"
                             wx:for="{{chargeOptionList}}"
                             wx:key="name"
@@ -149,7 +100,6 @@
                         model:value="{{charging_method}}"
                     >
                         <van-radio
-                            icon-size="15px"
                             custom-class="radio"
                             wx:for="{{chargingMmethodOptionList}}"
                             wx:key="name"
@@ -169,15 +119,6 @@
                 readonly="{{isReadonly}}"
                 model:value="{{barrier_brand}}"
             />
-            <van-field
-                clearable
-                label="包月收费"
-                placeholder="请输入价格（元/月）"
-                input-align="right"
-                type="number"
-                readonly="{{isReadonly}}"
-                model:value="{{monthly_charge}}"
-            />
             <van-cell
                 title="区域等级"
             >
@@ -188,7 +129,6 @@
                         model:value="{{area_level}}"
                     >
                         <van-radio
-                            icon-size="15px"
                             custom-class="radio"
                             wx:for="{{areaLevelOptionList}}"
                             wx:key="name"

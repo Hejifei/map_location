@@ -1,13 +1,7 @@
 import {
   MARK_TYPE_MAP,
-  ERROR_CODE_NEED_LOGIN,
 } from '../../common/index';
-import {
-  getUserToken,
-  parseApiUrl,
-} from '../../utils/util'
 import {Request} from '../../utils/request'
-import Toast from '@vant/weapp/toast/toast';
 
 Page({
   data: {
@@ -55,12 +49,15 @@ Page({
   onMarkDetailTap (e: any) {
     const dataset = e.currentTarget.dataset
     const {url, id} = dataset
-    console.log({
-      e,
-      dataset,
-    })
     wx.navigateTo({
       url: `${url}?id=${id}`,
+    })
+  },
+  onMarkLocationTap (e: any) {
+    const dataset = e.currentTarget.dataset
+    const {lat, lng, address} = dataset
+    wx.navigateTo({
+      url: `/pages/index/index?address=${address}&lat=${lat}&lng=${lng}`,
     })
   },
 })

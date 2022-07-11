@@ -4,6 +4,8 @@ import {getUserToken, setLocationInfo} from '../../utils/util';
 // const LocationIcon =  '../../assets/imgs/location_icon.png'
 import QQMapWX from '../../utils/qqmap-wx-jssdk.min.js';
 
+const MARK_NOW_URL = 'https://636c-cloud1-2grtkpnv263496be-1307461040.tcb.qcloud.la/mark_now.png?sign=58e307bd49226e9dd78b0d8a5e354a0a&t=1657528230'
+
 const defaultMarkConfig = {
     id: 0,
     iconPath: `${CDN_PATH}/Marker3_Activated@3x.png`,
@@ -41,6 +43,7 @@ Page({
         },
         showPosition: true,
         isLocationPersionAllowed: false,
+        isReadOnly: false,
         // isLogin: true,
         isRegionChanged: false, //  视野是否变换,若变化了,显示mark并设置中心点坐标为标注点
         // isLoginedIn: true,
@@ -58,11 +61,45 @@ Page({
             url: '../mark_list/mark_list',
         })
     },
-    onLoad() {
-      this.setData({
-        isLoginedIn: getUserToken(),
-      })
+    onLoad(options: any) {
+        this.setData({
+            isLoginedIn: getUserToken(),
+        })
+        const {address, lat, lng} = options
         var that = this
+        if (address && lat && lng) {
+            // wx.getLocation({
+            //     type: 'gcj02',
+            //     success: function () {
+            that.setData({
+                location: {
+                    latitude: lat,
+                    longitude: lng,
+                },
+                isReadOnly: true,
+                isLocationPersionAllowed: false,
+                markers: [{
+                    ...defaultMarkConfig,
+                    latitude: lat,
+                    longitude: lng,
+                    //  @ts-ignore
+                    callout: {
+                        display: 'ALWAYS',
+                        content: address,
+                        color: '#fff',
+                        fontSize: 12,
+                        borderRadius: 4,
+                        borderWidth: 1,
+                        borderColor: '#2C6DFF',
+                        bgColor: '#2C6DFF',
+                        padding: 6,
+                    }
+                }]
+            })
+            //     },
+            // })
+            return
+        }
         wx.getLocation({
             type: 'gcj02',
             success: function (res) {
@@ -71,6 +108,7 @@ Page({
                         latitude: res.latitude,
                         longitude: res.longitude,
                     },
+                    isReadOnly: false,
                     isLocationPersionAllowed: true,
                 })
             },
@@ -79,6 +117,9 @@ Page({
     },
     // 监听视野变化
     onChangeRegion(event: any) {
+        if (this.data.isReadOnly) {
+            return
+        }
         if (this.data.timer) {
             clearTimeout(this.data.timer)
         }
@@ -88,7 +129,6 @@ Page({
                 success: res => {
                     const latitude = res.latitude;
                     const longitude = res.longitude;
-                    console.log({res})
                     this.setData({
                         location: {
                             latitude: latitude,
@@ -109,24 +149,30 @@ Page({
     },
     //  移动0.5秒后显示立即标点文字
     addMarkTextEvent() {
+        if (this.data.isReadOnly) {
+            return
+        }
         const markers = this.data.markers
         const firstMarker = markers[0]
         const timer = setTimeout(() => {
             this.setData({
                 markers: [{
                     ...firstMarker,
+                    iconPath: MARK_NOW_URL,
+                    width: 80,
+                    height: 36,
                     //  @ts-ignore
-                    callout: {
-                        display: 'ALWAYS',
-                        content: '立即标点 >',
-                        color: '#fff',
-                        fontSize: 12,
-                        borderRadius: 4,
-                        borderWidth: 1,
-                        borderColor: '#2C6DFF',
-                        bgColor: '#2C6DFF',
-                        padding: 6,
-                    }
+                    // callout: {
+                    //     display: 'ALWAYS',
+                    //     content: '立即标点 >',
+                    //     color: '#fff',
+                    //     fontSize: 12,
+                    //     borderRadius: 4,
+                    //     borderWidth: 1,
+                    //     borderColor: '#2C6DFF',
+                    //     bgColor: '#2C6DFF',
+                    //     padding: 6,
+                    // }
                 }]
             })
         }, 500)
@@ -136,6 +182,9 @@ Page({
     },
     // poi点击回调
     onTapPoi(event: any) {
+        if (this.data.isReadOnly) {
+            return
+        }
         if (this.data.timer) {
             clearTimeout(this.data.timer)
         }
@@ -159,8 +208,10 @@ Page({
         });
     },
     onAddMarkerTap() {
+        if (this.data.isReadOnly) {
+            return
+        }
         const that = this
-        console.log('立即标点')
         qqmapsdk.reverseGeocoder({
             location: {
                 latitude: that.data.location.latitude,
@@ -170,7 +221,6 @@ Page({
             success: function (res: any) {//成功后的回调
                 var res = res.result;
                 const address = res.address;
-                console.log({address})
                 // var mks = [];
                 setLocationInfo({
                   lng: that.data.location.longitude,

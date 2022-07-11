@@ -1,90 +1,163 @@
 <view class="container ">
-    <view class="itemWrapper">
-        <view class="title">选择类型（单选）</view>
-        <view class="itemContent radioGroupWrapper" >
-            <van-radio-group
-                direction="horizontal"
-                readonly="{{isReadonly}}"
-                model:value="{{parking_facilities_type}}"
-            >
-                <van-radio
-                    icon-size="15px"
-                    custom-class="radio"
-                    wx:for="{{buildingTypeList}}"
-                    wx:key="name"
-                    wx:for-item="item"
-                    name="{{item.value}}"
-                >
-                    {{item.name}}
-                </van-radio>
-            </van-radio-group>
-        </view>
-    </view>
 
     <view class="itemWrapper">
         <view class="title">基本信息</view>
         <van-cell-group>
             <van-field
                 clearable
-                label="停车设施名称"
-                placeholder="请输入建筑名称"
+                label="所属街道"
+                placeholder="请输入所属街道"
                 input-align="right"
                 readonly="{{isReadonly}}"
-                model:value="{{parking_facilities_name}}"
+                model:value="{{street}}"
             />
             <van-field
                 clearable
-                label="总建筑面积平方米"
-                placeholder="请输入平方米"
+                label="道路名称"
+                placeholder="请输入道路名称"
+                input-align="right"
+                readonly="{{isReadonly}}"
+                model:value="{{road_name}}"
+            />
+            <van-field
+                clearable
+                label="调查起点"
+                placeholder="请输入调查起点"
+                input-align="right"
+                readonly="{{isReadonly}}"
+                model:value="{{starting_point_investigation}}"
+            />
+            <van-field
+                clearable
+                label="调查终点"
+                placeholder="请输入调查终点"
+                input-align="right"
+                readonly="{{isReadonly}}"
+                model:value="{{survey_endpoint}}"
+            />
+            <van-field
+                clearable
+                label="道路车道数（双向共计）"
+                placeholder="请输入车道数量"
                 input-align="right"
                 type="number"
-                title-width="180px"
+                title-width="160px"
                 readonly="{{isReadonly}}"
-                model:value="{{total_construction_area_square_meters}}"
+                model:value="{{number_road_lanes}}"
+            />
+            <van-field
+                clearable
+                label="运营管理单位"
+                placeholder="请输入运营管理单位"
+                input-align="right"
+                readonly="{{isReadonly}}"
+                model:value="{{operation_management_unit}}"
+            />
+            <van-field
+                clearable
+                label="备案号"
+                placeholder="请输入备案号"
+                input-align="right"
+                readonly="{{isReadonly}}"
+                model:value="{{record_no}}"
             />
         </van-cell-group>
     </view>
 
     <view class="itemWrapper">
         <view class="title">停车位情况</view>
+        
         <van-cell-group>
-            <van-field
-                clearable
-                label="地下停车位"
-                placeholder="请输入个数"
-                input-align="right"
-                type="number"
-                readonly="{{isReadonly}}"
-                model:value="{{underground_parking_space}}"
-            />
-            <van-field
-                clearable
-                label="地面停车位"
-                placeholder="请输入个数"
-                input-align="right"
-                type="number"
-                readonly="{{isReadonly}}"
-                model:value="{{ground_parking_space}}"
-            />
-            <van-field
-                clearable
-                label="总停车位"
-                placeholder="请输入个数"
-                input-align="right"
-                type="number"
-                readonly="{{isReadonly}}"
-                model:value="{{total_parking_space}}"
-            />
-            <van-field
-                clearable
-                label="机械停车位"
-                placeholder="请输入个数"
-                input-align="right"
-                type="number"
-                title-width="200px"
-                readonly="{{isReadonly}}"
-                model:value="{{mechanical_parking_space}}"
-            />
+            <van-cell title-width="140" >
+                <view slot="title" class="innerHourWrapper">
+                    <van-checkbox
+                        model:value="{{east_side_the_road}}"
+                        shape="square"
+                        icon-size="15"
+                        bind:change="onEastSideChange"
+                    >
+                        道路东侧
+                    </van-checkbox>
+                </view>
+                <van-icon slot="right-icon" style="flex: 1;">
+                    <van-field
+                        model:value="{{east_side_the_road_number}}"
+                        placeholder="请输入车道数量"
+                        border="{{false}}"
+                        input-align="right"
+                        custom-style="padding: 0;"
+                        type="number"
+                        />
+                </van-icon>
+            </van-cell>
+            <van-cell title-width="140" >
+                <view slot="title" class="innerHourWrapper">
+                    <van-checkbox
+                        model:value="{{west_side_the_road}}"
+                        shape="square"
+                        icon-size="15"
+                        bind:change="onWestSideChange"
+                        >
+                        道路西侧
+                    </van-checkbox>
+                </view>
+                <van-icon slot="right-icon" style="flex: 1;">
+                    <van-field
+                        model:value="{{west_side_the_road_number}}"
+                        placeholder="请输入车道数量"
+                        border="{{false}}"
+                        input-align="right"
+                        custom-style="padding: 0;"
+                        type="number"
+                        />
+                </van-icon>
+            </van-cell>
+            <van-cell title-width="140" >
+                <view slot="title" class="innerHourWrapper">
+                    <van-checkbox
+                        model:value="{{south_side_the_road}}"
+                        shape="square"
+                        icon-size="15"
+                        bind:change="onSouthSideChange"
+                        >
+                        道路南侧
+                    </van-checkbox>
+                </view>
+                <van-icon slot="right-icon" style="flex: 1;">
+                    <van-field
+                        model:value="{{south_side_the_road_number}}"
+                        placeholder="请输入车道数量"
+                        border="{{false}}"
+                        input-align="right"
+                        custom-style="padding: 0;"
+                        type="number"
+                        />
+                </van-icon>
+            </van-cell>
+            <van-cell title-width="140" >
+                <view slot="title" class="innerHourWrapper">
+                    <van-checkbox
+                        model:value="{{north_side_the_road}}"
+                        shape="square"
+                        icon-size="15"
+                        bind:change="onNorthSideChange"
+                        >
+                        道路北侧
+                    </van-checkbox>
+                </view>
+                <van-icon slot="right-icon" style="flex: 1;">
+                    <van-field
+                        model:value="{{north_side_the_road_number}}"
+                        placeholder="请输入车道数量"
+                        border="{{false}}"
+                        input-align="right"
+                        custom-style="padding: 0;"
+                        type="number"
+                        />
+                </van-icon>
+            </van-cell>
+
+
         </van-cell-group>
     </view>
 
@@ -140,14 +213,6 @@
                     </van-radio-group>
                 </van-icon>
             </van-cell>
-            <van-field
-                clearable
-                label="道闸品牌"
-                placeholder="请输入道闸品牌 "
-                input-align="right"
-                readonly="{{isReadonly}}"
-                model:value="{{barrier_brand_light_duty_vehicle}}"
-            />
             <van-cell
                 title="区域等级"
             >
@@ -246,14 +311,6 @@
                     </van-radio-group>
                 </van-icon>
             </van-cell>
-            <van-field
-                clearable
-                label="道闸品牌"
-                placeholder="请输入道闸品牌 "
-                input-align="right"
-                readonly="{{isReadonly}}"
-                model:value="{{barrier_brand_large_vehicle}}"
-            />
             <van-cell
                 title="区域等级"
             >

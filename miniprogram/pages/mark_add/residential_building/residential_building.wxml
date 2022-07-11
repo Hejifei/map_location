@@ -8,11 +8,12 @@
                 model:value="{{building_type}}"
             >
                 <van-radio
+                    icon-size="15px"
                     custom-class="radio"
                     wx:for="{{buildingTypeList}}"
-                    wx:key="name"
+                    wx:key="value"
                     wx:for-item="item"
-                    name="{{item.name}}"
+                    name="{{item.value}}"
                 >
                     {{item.name}}
                 </van-radio>
@@ -37,7 +38,7 @@
                 placeholder="请输入平方米"
                 input-align="right"
                 type="number"
-                title-width="200px"
+                title-width="160px"
                 readonly="{{isReadonly}}"
                 model:value="{{residential_building_area}}"
             />
@@ -127,6 +128,7 @@
                         model:value="{{is_charge}}"
                     >
                         <van-radio
+                            icon-size="15px"
                             custom-class="radio"
                             wx:for="{{chargeOptionList}}"
                             wx:key="name"
@@ -148,6 +150,7 @@
                         model:value="{{charging_method}}"
                     >
                         <van-radio
+                            icon-size="15px"
                             custom-class="radio"
                             wx:for="{{chargingMmethodOptionList}}"
                             wx:key="name"

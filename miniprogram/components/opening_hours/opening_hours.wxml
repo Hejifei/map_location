@@ -11,8 +11,9 @@
             custom-style="padding-right: 0; padding-left: 0;"
           >
             <van-radio
-              slot="title"
-              name="1"
+                icon-size="15px"
+                slot="title"
+                name="1"
             >
               全天开放
             </van-radio>
@@ -21,8 +22,9 @@
             custom-style="padding-right: 0; padding-left: 0;"
           >
             <van-radio
-              slot="title"
-              name="2"
+                icon-size="15px"
+                slot="title"
+                name="2"
             >
               分时段开放
             </van-radio>

@@ -3,19 +3,12 @@ import {
   getLocationInfo,
   clearLocationInfo,
 } from '../../../utils/util'
-import {MARK_TYPE_OFF_STREET_PUBLIC} from '../../../common/index'
+import {MARK_TYPE_BUILDING_SETBACK} from '../../../common/index'
 import {Request} from '../../../utils/request'
 import Toast from '@vant/weapp/toast/toast';
 
 Page({
     data: {
-        buildingTypeList: [
-            {value: 1, name: '地面停车场'},
-            {value: 2, name: '地下停车场'},
-            {value: 3, name: '停车楼'},
-            {value: 4, name: '机械停车设施'},
-            {value: 5, name: '混合类型'},
-        ],
         chargeOptionList: [
             {name: '是', value: 1,},
             {name: '否  ', value: 0,},
@@ -38,52 +31,36 @@ Page({
         lng: '',    //  经度
         lat: '',    //  纬度
         address: '',    //  位置地址信息
-        // 选择类型（单选）
-        parking_facilities_type: undefined,  //  停车设施类型
 
-        // 基本信息
-        parking_facilities_name: undefined, //  停车设施名称
-        total_construction_area_square_meters: undefined, //   总建筑面积平方米
+        // 沿线道路基本信息
+        road_name: undefined, //   道路名称
+        starting_point_road: undefined, //   调查起点
+        end_road: undefined, //   调查终点
 
-        // 停车位情况
-        underground_parking_space: undefined, //   地下停车位
-        ground_parking_space: undefined, // 地上停车位
-        total_parking_space: undefined, //  总停车位
-        mechanical_parking_space: undefined,  //  机械停车位
+        //  建筑物基本信息
+        building_name: undefined,   //  建筑名称
+
+        //  停车位情况
+        parking_spaces: undefined,  //  停车泊位数
 
         //  允许停放时间（单选）
         opening_hours: undefined, //  0-未知 1-全天开放2-分时段开放
         dayparting: undefined,
 
-        //  收费方式及收费标准（小型车)
-        is_charge_light_duty_vehicle: undefined,   //  是否收费 1-收费 0-否
-        charging_method_light_duty_vehicle: undefined, //  收费方式  1-人工 2-智能
-        barrier_brand_light_duty_vehicle: undefined, //    道闸品牌
-        area_level_light_duty_vehicle: undefined,//  区域等级
-        first_period_hour_light_duty_vehicle: undefined, //   首时段
-        first_period_hour_money_light_duty_vehicle: undefined, //  首时段小时元
-        first_period_hour_per_light_duty_vehicle: undefined, //  每小时
-        first_period_day_hour_money_light_duty_vehicle: undefined, //  白天后时段 首时段小时元
-        first_period_day_hour_per_light_duty_vehicle: undefined, //  白天后时段 每小时
-        first_period_night_hour_money_light_duty_vehicle: undefined, //  夜晚后时段 首时段小时元
-        first_period_night_hour_per_light_duty_vehicle: undefined, //  夜晚后时段 每小时
-        daily_maximum_charge_light_duty_vehicle: undefined, //   日最高收费
-        other_light_duty_vehicle: undefined, //    其它
-
-        // 收费方式及收费标准（大型车)
-        is_charge_large_vehicle: undefined,   //  是否收费 1-收费 0-否
-        charging_method_large_vehicle: undefined, //  收费方式  1-人工 2-智能
-        barrier_brand_large_vehicle: undefined, //    道闸品牌
-        area_level_large_vehicle: undefined,//  区域等级
-        first_period_hour_large_vehicle: undefined, //   首时段
-        first_period_hour_money_large_vehicle: undefined, //  首时段小时元
-        first_period_hour_per_large_vehicle: undefined, //  每小时
-        first_period_day_hour_money_large_vehicle: undefined, //  白天后时段 首时段小时元
-        first_period_day_hour_per_large_vehicle: undefined, //  白天后时段 每小时
-        first_period_night_hour_money_large_vehicle: undefined, //  夜晚后时段 首时段小时元
-        first_period_night_hour_per_large_vehicle: undefined, //  夜晚后时段 每小时
-        daily_maximum_charge_large_vehicle: undefined, //   日最高收费
-        other_large_vehicle: undefined, //    其它
+        // 收费方式及收费标准（拍摄停车收费公示牌照片)
+        is_charge: undefined,   //  是否收费 1-收费 0-否
+        charging_method: undefined, //  收费方式  1-人工 2-智能
+        barrier_brand: undefined, //    道闸品牌
+        area_level: undefined,//  区域等级
+        first_period_hour: undefined, //   首时段
+        first_period_hour_money: undefined, //  首时段小时元
+        first_period_hour_per: undefined, //  每小时
+        first_period_day_hour_money: undefined, //  白天后时段 首时段小时元
+        first_period_day_hour_per: undefined, //  白天后时段 每小时
+        first_period_night_hour_money: undefined, //  
+        first_period_night_hour_per: undefined, //  
+        daily_maximum_charge: undefined, //   日最高收费
+        other: undefined, //    其它
 
         //  停车需求信息
         first_recording_time: undefined, //   第一次记录时间   
@@ -108,7 +85,7 @@ Page({
           url: '/api/tag/info',
           data: {
             id,
-            type: MARK_TYPE_OFF_STREET_PUBLIC,
+            type: MARK_TYPE_BUILDING_SETBACK,
           },
           method: 'GET',
           successCallBack: (res: any) => {
@@ -118,7 +95,7 @@ Page({
               data.images = images.split(',').map((url: string) => ({url}))
             }
             that.setData({
-              ...data
+              ...data,
             })
           }
         })
@@ -134,7 +111,6 @@ Page({
     },
     onSubmitBtnTap: function () {
         let {
-          buildingTypeList,
           chargeOptionList,
           chargingMmethodOptionList,
           areaLevelOptionList,
@@ -159,12 +135,9 @@ Page({
           user_id,
           //  @ts-ignore
           __webviewId__,
+
           ...query
         } = this.data
-        console.log({
-          query,
-          data: this.data,
-        })
         const images = (this.data.images || []).map(({url}) => url).join(',')
         query = {
             ...query,
@@ -178,21 +151,20 @@ Page({
             id,
           }
         }
-        
         Request({
-          url: id ? '/api/tag/offroadmod' : '/api/tag/offroadadd',
+          url: id ? '/api/tag/yieldmod' : '/api/tag/yieldadd',
           data: query,
           method: id ? "PUT" : 'POST',
           successCallBack: (data: any = {}) => {
             Toast.success(data.msg)
-                if (!id) {
-                    clearLocationInfo()
-                }
-                setTimeout(() => {
-                    wx.navigateTo({
-                        url: '/pages/mark_list/mark_list',
-                    })
-                }, 500)
+            if (!id) {
+                clearLocationInfo()
+            }
+            setTimeout(() => {
+                wx.navigateTo({
+                    url: '/pages/mark_list/mark_list',
+                })
+            }, 500)
           }
         })
 

@@ -36,12 +36,12 @@ export const MARK_TYPE_MAP: Record<number, {
         name: '道路停车设施',
         img_src: '../../assets/imgs/type_on_street_side.png',
         type: MARK_TYPE_ON_STREET_SIDE,
-        url: '',
+        url: '/pages/mark_add/on_street_side/on_street_side',
     },
     [MARK_TYPE_BUILDING_SETBACK]: {
         name: '建筑物退让空间停车设施',
         img_src: '../../assets/imgs/type_building_setback.png',
         type: MARK_TYPE_BUILDING_SETBACK,
-        url: '',
+        url: '/pages/mark_add/building_setback/building_setback',
     },
 }

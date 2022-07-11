@@ -7,8 +7,9 @@
     "pages/mark_add/residential_building/residential_building",
     "pages/mark_add/non_residential_building/non_residential_building",
     "pages/mark_add/off_street_public/off_street_public",
+    "pages/mark_add/on_street_side/on_street_side",
+    "pages/mark_add/building_setback/building_setback",
     "pages/logs/logs"
-    
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -25,16 +25,18 @@
         <van-button
             class="button"
             type="primary"
-            data-id="{{item.id}}"
+            data-id="{{item.tag_id}}"
             data-lat="{{item.lat}}"
             data-lng="{{item.lng}}"
+            data-address="{{item.address}}"
+            bindtap="onMarkLocationTap"
         >
             查看标点
         </van-button>
         <van-button
             class="button"
             type="info"
-            data-id="{{item.id}}"
+            data-id="{{item.tag_id}}"
             data-url="{{item.typeInfo.url}}"
             bindtap="onMarkDetailTap"
         >

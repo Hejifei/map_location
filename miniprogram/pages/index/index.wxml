@@ -7,7 +7,7 @@
         latitude="{{location.latitude}}"
         longitude="{{location.longitude}}"
         scale='16'
-        markers="{{isRegionChanged ? markers : []}}"
+        markers="{{isRegionChanged || isReadOnly ? markers : []}}"
         bindregionchange="onChangeRegion"
         bindpoitap="onTapPoi"
         show-location="{{showPosition}}"
