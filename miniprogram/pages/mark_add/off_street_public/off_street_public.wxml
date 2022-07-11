@@ -108,6 +108,7 @@
                         model:value="{{is_charge_light_duty_vehicle}}"
                     >
                         <van-radio
+                            icon-size="15px"
                             custom-class="radio"
                             wx:for="{{chargeOptionList}}"
                             wx:key="name"
@@ -129,6 +130,7 @@
                         model:value="{{charging_method_light_duty_vehicle}}"
                     >
                         <van-radio
+                            icon-size="15px"
                             custom-class="radio"
                             wx:for="{{chargingMmethodOptionList}}"
                             wx:key="name"
@@ -158,6 +160,7 @@
                         model:value="{{area_level_light_duty_vehicle}}"
                     >
                         <van-radio
+                            icon-size="15px"
                             custom-class="radio"
                             wx:for="{{areaLevelOptionList}}"
                             wx:key="name"
@@ -214,6 +217,7 @@
                         model:value="{{is_charge_large_vehicle}}"
                     >
                         <van-radio
+                            icon-size="15px"
                             custom-class="radio"
                             wx:for="{{chargeOptionList}}"
                             wx:key="name"
@@ -235,6 +239,7 @@
                         model:value="{{charging_method_large_vehicle}}"
                     >
                         <van-radio
+                            icon-size="15px"
                             custom-class="radio"
                             wx:for="{{chargingMmethodOptionList}}"
                             wx:key="name"
@@ -264,6 +269,7 @@
                         model:value="{{area_level_large_vehicle}}"
                     >
                         <van-radio
+                            icon-size="15px"
                             custom-class="radio"
                             wx:for="{{areaLevelOptionList}}"
                             wx:key="name"

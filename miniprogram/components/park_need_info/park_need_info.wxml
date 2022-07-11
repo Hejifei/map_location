@@ -24,7 +24,7 @@
         <van-field
             clearable
             label="划线停车数"
-            placeholder="请输入停车位数量（辆）"
+            placeholder="请输入停车位数量(辆)"
             input-align="right"
             type="number"
             readonly="{{isReadonly}}"
@@ -33,7 +33,7 @@
         <van-field
             clearable
             label="未划线停车数"
-            placeholder="请输入停车位数量（辆）"
+            placeholder="请输入停车位数量(辆)"
             input-align="right"
             type="number"
             readonly="{{isReadonly}}"
@@ -62,7 +62,7 @@
         <van-field
             clearable
             label="划线停车数"
-            placeholder="请输入停车位数量（辆）"
+            placeholder="请输入停车位数量(辆)"
             input-align="right"
             type="number"
             readonly="{{isReadonly}}"
@@ -71,7 +71,7 @@
         <van-field
             clearable
             label="未划线停车数"
-            placeholder="请输入停车位数量（辆）"
+            placeholder="请输入停车位数量(辆)"
             input-align="right"
             type="number"
             readonly="{{isReadonly}}"

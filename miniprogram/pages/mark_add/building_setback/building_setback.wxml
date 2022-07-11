@@ -79,6 +79,7 @@
                         model:value="{{is_charge}}"
                     >
                         <van-radio
+                            icon-size="15px"
                             custom-class="radio"
                             wx:for="{{chargeOptionList}}"
                             wx:key="name"
@@ -100,6 +101,7 @@
                         model:value="{{charging_method}}"
                     >
                         <van-radio
+                            icon-size="15px"
                             custom-class="radio"
                             wx:for="{{chargingMmethodOptionList}}"
                             wx:key="name"
@@ -129,6 +131,7 @@
                         model:value="{{area_level}}"
                     >
                         <van-radio
+                            icon-size="15px"
                             custom-class="radio"
                             wx:for="{{areaLevelOptionList}}"
                             wx:key="name"
