@@ -4,7 +4,8 @@ import {getUserToken, setLocationInfo} from '../../utils/util';
 // const LocationIcon =  '../../assets/imgs/location_icon.png'
 import QQMapWX from '../../utils/qqmap-wx-jssdk.min.js';
 
-const MARK_NOW_URL = 'https://636c-cloud1-2grtkpnv263496be-1307461040.tcb.qcloud.la/mark_now.png?sign=58e307bd49226e9dd78b0d8a5e354a0a&t=1657528230'
+// const MARK_NOW_URL = 'https://636c-cloud1-2grtkpnv263496be-1307461040.tcb.qcloud.la/mark_now.png?sign=58e307bd49226e9dd78b0d8a5e354a0a&t=1657528230'
+const MARK_NOW_URL = '/assets/imgs/mark_now.png'
 
 const defaultMarkConfig = {
     id: 0,
