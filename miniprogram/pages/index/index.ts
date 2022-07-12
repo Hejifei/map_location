@@ -1,6 +1,8 @@
 // index.ts
 import {PLUGIN_KEY, CDN_PATH} from '../../config/appConfig.js';
 import {getUserToken, setLocationInfo} from '../../utils/util';
+import {Request} from '../../utils/request'
+import {MARK_TYPE_MAP} from '../../common/index'
 // const LocationIcon =  '../../assets/imgs/location_icon.png'
 import QQMapWX from '../../utils/qqmap-wx-jssdk.min.js';
 
@@ -48,15 +50,20 @@ Page({
         isReadOnly: false,
         // isLogin: true,
         isRegionChanged: false, //  视野是否变换,若变化了,显示mark并设置中心点坐标为标注点
-        // isLoginedIn: true,
-        isLoginedIn: false,
+        // isLogin: true,
+        isLogin: false,
         // markers: [],
-        markers: [defaultMarkConfig],
+        markers: [],
+        markDataList: [],
+        options: undefined,
         timer: 0,
+        animation: false,
+        isLocationPickerVisible: false, //  定位选择是否显示
+        isMarkerActivatedVisible: false,
     },
     onLoginBtnTap() {
         wx.navigateTo({
-            url: '../login/login',
+            url: '/pages/login/login',
         })
     },
     onMarkAddBtnTap() {
@@ -64,11 +71,79 @@ Page({
             url: '../mark_list/mark_list',
         })
     },
-    onLoad(options: any) {
+    // onShow() {
+    //     console.log('onShow')
+    // },
+    onHide() {
         this.setData({
-            isLoginedIn: getUserToken(),
+            isLocationPickerVisible: false,
+        })
+    },
+    onLoad(options: any) {
+        const isLogin = getUserToken()
+        this.setData({
+            isLogin,
         })
         const {address, lat, lng} = options
+        if (address && lat && lng) {
+            this.setData({
+                options,
+            })
+        }
+        if (isLogin) {
+            const that = this
+            Request({
+            url: '/api/tag/index',
+            data: {
+                page: 1,
+                pagesize: 999,
+            },
+            method: 'GET',
+            successCallBack: (res: any) => {
+                const {list: data} = res.data
+                const list = data.map((item: any) => ({
+                    ...item,
+                    typeInfo: MARK_TYPE_MAP[item.type]
+                }))
+                const markList = list.map((item) => ({
+                    id: item.id,
+                    iconPath: item.typeInfo.location_icon_url,
+                    // iconPath: `${CDN_PATH}/Marker3_Activated@3x.png`,
+                    // iconPath: MARK_NOW_URL,
+                    latitude: item.lat,
+                    longitude: item.lng,
+                    width: 16,
+                    height: 20,
+                    // width: 80,
+                    // height: 36,
+                    customCallout: {
+                        display: 'BYCLICK',
+                        anchorY: 0,
+                        anchorX: 0,
+                    },
+                    // callout: {
+                    //     display: 'BYCLICK',
+                    //     content: item.address,
+                    //     color: '#fff',
+                    //     fontSize: 12,
+                    //     borderRadius: 4,
+                    //     borderWidth: 1,
+                    //     borderColor: '#2C6DFF',
+                    //     bgColor: '#2C6DFF',
+                    //     padding: 6,
+                    // }
+                }))
+                that.setData({
+                    //  @ts-ignore
+                    markers: markList,
+                    markDataList: list,
+                })
+            }
+            })
+        }
+    },
+    onShow() {
+        const {address, lat, lng} = (this.data.options || {}) as any
         var that = this
         if (address && lat && lng) {
             // wx.getLocation({
@@ -81,33 +156,33 @@ Page({
                 },
                 isReadOnly: true,
                 isLocationPersionAllowed: false,
-                markers: [{
-                    id: 0,
-                    iconPath: `${CDN_PATH}/Marker3_Activated@3x.png`,
-                    width: 30,
-                    height: 30,
-                    // iconPath: MARK_NOW_URL,
-                    // width: 80,
-                    // height: 36,
-                    // latitude: 31.32,
-                    // longitude: 120.62,
+                // markers: [{
+                //     id: 0,
+                //     iconPath: `${CDN_PATH}/Marker3_Activated@3x.png`,
+                //     width: 30,
+                //     height: 30,
+                //     // iconPath: MARK_NOW_URL,
+                //     // width: 80,
+                //     // height: 36,
+                //     // latitude: 31.32,
+                //     // longitude: 120.62,
                     
-                    // ...defaultMarkConfig,
-                    latitude: lat,
-                    longitude: lng,
-                    //  @ts-ignore
-                    callout: {
-                        display: 'ALWAYS',
-                        content: address,
-                        color: '#fff',
-                        fontSize: 12,
-                        borderRadius: 4,
-                        borderWidth: 1,
-                        borderColor: '#2C6DFF',
-                        bgColor: '#2C6DFF',
-                        padding: 6,
-                    }
-                }]
+                //     // ...defaultMarkConfig,
+                //     latitude: lat,
+                //     longitude: lng,
+                //     //  @ts-ignore
+                //     callout: {
+                //         display: 'ALWAYS',
+                //         content: address,
+                //         color: '#fff',
+                //         fontSize: 12,
+                //         borderRadius: 4,
+                //         borderWidth: 1,
+                //         borderColor: '#2C6DFF',
+                //         bgColor: '#2C6DFF',
+                //         padding: 6,
+                //     }
+                // }]
             })
             //     },
             // })
@@ -135,8 +210,15 @@ Page({
         }
         if (this.data.timer) {
             clearTimeout(this.data.timer)
+            this.data.timer = 0
         }
         const that = this
+        if (event.type === 'begin' && event.causedBy === 'gesture') {
+            this.setData({
+                isLocationPickerVisible: true,
+                isMarkerActivatedVisible: true,
+            })
+        }
         if (event.type === 'end' && event.causedBy === 'drag') {
             const mapCtx = wx.createMapContext('map', this);
             mapCtx.getCenterLocation({
@@ -148,79 +230,19 @@ Page({
                             latitude: latitude,
                             longitude: longitude,
                         },
+                        animation: true,
+                        isMarkerActivatedVisible: false,
                         isRegionChanged: true,
-                        markers: [{
-                            id: 0,
-                            iconPath: `${CDN_PATH}/Marker3_Activated@3x.png`,
-                            width: 30,
-                            height: 30,
-                            // iconPath: MARK_NOW_URL,
-                            // width: 80,
-                            // height: 36,
-                            // latitude: 31.32,
-                            // longitude: 120.62,
-                            // ...defaultMarkConfig,
-                            latitude: latitude,
-                            longitude: longitude,
-                        }]
-                    }, () => {
-                        that.addMarkTextEvent();
                     });
                 }
             });
         }
     },
-    //  移动0.5秒后显示立即标点文字
-    addMarkTextEvent() {
-        
-        if (this.data.isReadOnly) {
-            return
-        }
-        const that = this
-        // const markers = this.data.markers
-        // const firstMarker = markers[0]
-        // const {} = this.lo
-
-        setTimeout(() => {
-            this.setData({
-                markers: [{
-                    id: 0,
-                    // iconPath: `${CDN_PATH}/Marker3_Activated@3x.png`,
-                    // width: 30,
-                    // height: 30,
-                    iconPath: MARK_NOW_URL,
-                    width: 80,
-                    height: 36,
-                    // location: {
-                    //     latitude: lat,
-                    //     longitude: lng,
-                    // },
-                    latitude: that.data.location.latitude,
-                    longitude: that.data.location.longitude,
-                    // ...firstMarker,
-                    // id: 1,
-                    // iconPath: MARK_NOW_URL,
-                    // width: 80,
-                    // height: 36,
-                    //  @ts-ignore
-                    // callout: {
-                    //     display: 'ALWAYS',
-                    //     content: '立即标点 >',
-                    //     color: '#fff',
-                    //     fontSize: 12,
-                    //     borderRadius: 4,
-                    //     borderWidth: 1,
-                    //     borderColor: '#2C6DFF',
-                    //     bgColor: '#2C6DFF',
-                    //     padding: 6,
-                    // }
-                }]
-            })
-        }, 400)
-        // this.setData({
-        //     timer: timerTem,
-        // })
-    },
+    onMarkerAnimationend () {
+		this.setData({
+			animation: false
+		});
+	},
     // poi点击回调
     onTapPoi(event: any) {
         if (this.data.isReadOnly) {
@@ -228,36 +250,27 @@ Page({
         }
         if (this.data.timer) {
             clearTimeout(this.data.timer)
+            this.data.timer = 0
         }
-        // const name = event.detail.name.length <= 8 ? event.detail.name : event.detail.name.substring(0, 8)+'...';
         const latitude = event.detail.latitude;
         const longitude = event.detail.longitude;
         this.setData({
-            // poiCallbackTxt: name + '：' + latitude.toFixed(6) + ',' + longitude.toFixed(6)
             location: {
                 latitude: latitude,
                 longitude: longitude,
             },
             isRegionChanged: true,
-            markers: [{
-                // ...defaultMarkConfig,
-                id: 0,
-                iconPath: `${CDN_PATH}/Marker3_Activated@3x.png`,
-                width: 30,
-                height: 30,
-                // iconPath: MARK_NOW_URL,
-                // width: 80,
-                // height: 36,
-                // latitude: 31.32,
-                // longitude: 120.62,
-                latitude: latitude,
-                longitude: longitude,
-            }]
-        }, () => {
-            this.addMarkTextEvent();
+            animation: true,
+            isMarkerActivatedVisible: false,
         });
     },
     onAddMarkerTap() {
+        if (!this.data.isLogin) {
+            wx.navigateTo({
+                url: '/pages/login/login',
+            })
+            return
+        }
         if (this.data.isReadOnly) {
             return
         }
@@ -280,27 +293,6 @@ Page({
                 wx.navigateTo({
                   url: '../type_select/type_select',
                 })
-
-                //当get_poi为0时或者为不填默认值时，检索目标位置，按需使用
-                // mks.push({ // 获取返回结果，放到mks数组中
-                //     ...defaultMarkConfig,
-                //     latitude: that.data.location.latitude,
-                //     longitude: that.data.location.longitude,
-
-                //     title: res.address,
-                //     callout: { //在markers上展示地址名称，根据需求是否需要
-                //         content: res.address,
-                //         color: '#000',
-                //         display: 'ALWAYS'
-                //     }
-                // });
-                // that.setData({ //设置markers属性和地图位置poi，将结果在地图展示
-                //     markers: mks,
-                //     // poi: {
-                //     //   latitude: res.location.lat,
-                //     //   longitude: res.location.lng
-                //     // }
-                // });
             },
             fail: function (error: any) {
                 console.error(error);
@@ -309,5 +301,14 @@ Page({
                 console.log(res);
             }
         })
-    }
+    },
+    onMarkDetailTap (e: any) {
+        const markerId = e.markerId
+        const markerInfo = this.data.markDataList.filter((item: any) => item.id === markerId)[0]
+        const {typeInfo, tag_id: id} = markerInfo
+        const {url} = typeInfo
+        wx.navigateTo({
+          url: `${url}?id=${id}`,
+        })
+    },
 })

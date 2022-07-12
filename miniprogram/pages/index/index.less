@@ -36,3 +36,86 @@
         }
     }
 }
+
+.addMarkBtn {
+    width: 210px !important;
+}
+
+.locationpicker-ic-marker {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 10;
+}
+.markerActivatedWrapper {
+    margin-top: -34px;
+    margin-left: -17px;
+    width: 34px;
+    height: 34px;
+}
+.markNowWrapper {
+    margin-top: -36px;
+    margin-left: -40px;
+    width: 80px;
+    height: 36px;
+}
+.locationpicker-img {
+    // width: 80px;
+    // height: 36px;
+    width: 100%;
+    height: 100%;
+}
+.locationpicker-animation {
+  animation: markermove 0.5s ease;
+}
+@keyframes markermove
+{
+  from {transform: translateY(0)}
+  50% {transform: translateY(-50px)}
+  to {transform: translateY(0)}
+}
+
+.markInfoWrapper {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 15px 15px 0;
+    width: 224px;
+
+    .markTypeWrapper {
+        color: #2C6DFF;
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 12px;
+    }
+    .textLineWrapper {
+        margin-bottom: 6px;
+        color: #B4BCC7;
+        font-size: 13px;
+        line-height: 18px;
+        flex-wrap: wrap;
+    }
+
+    .detailBtnWrapper {
+        margin-top: 12px;
+        border-top: 1px solid #E8E8E8;
+        display: flex;
+        flex-direction: row-reverse;
+        
+        // text-align: right;
+        // align-items: center;
+        // justify-content: center;
+        padding: 11px 0;
+
+        .detailBtn {
+            border-radius: 12px;
+            width: 75px;
+            height: 25px;
+            color: #333;
+            font-size: 13px;
+            text-align: center;
+            line-height: 25px;
+            color: #fff;
+            background-color: #2C6DFF;
+        }
+    }
+}

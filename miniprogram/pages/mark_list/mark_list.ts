@@ -30,7 +30,7 @@ Page({
       url: '/api/tag/index',
       data: {
         page: 1,
-        pagesize: 99,
+        pagesize: 999,
       },
       method: 'GET',
       successCallBack: (res: any) => {

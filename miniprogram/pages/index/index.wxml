@@ -1,26 +1,71 @@
 <!--index.wxml-->
 <view class="container">
+    <!-- markers="{{isRegionChanged || isReadOnly ? markers : []}}" -->
+    <!-- bindmarkertap="onAddMarkerTap"
+    bindpoitap="onTapPoi"
+        bindcallouttap="onAddMarkerTap" -->
     <map
-    markers
         class="map"
         id="map"
         latitude="{{location.latitude}}"
         longitude="{{location.longitude}}"
         scale='16'
-        markers="{{isRegionChanged || isReadOnly ? markers : []}}"
         bindregionchange="onChangeRegion"
-        bindpoitap="onTapPoi"
         show-location="{{showPosition}}"
-        bindmarkertap="onAddMarkerTap"
-        bindcallouttap="onAddMarkerTap"
+        markers="{{markers}}"
+        bindcallouttap="onMarkDetailTap"
     > 
+        <view
+            wx:if="{{isLocationPickerVisible}}"
+            class="locationpicker-ic-marker {{animation ? 'locationpicker-animation' : ''}} {{isMarkerActivatedVisible ? 'markerActivatedWrapper' : 'markNowWrapper'}}"
+            bindanimationend="onMarkerAnimationend">
+            <!-- <image class="locationpicker-img" src="./img/Big_Marker@2x.png"></image> -->
+            <image
+                wx:if="{{isMarkerActivatedVisible}}"
+                class="locationpicker-img"
+                src="./img/Marker3_Activated.png"
+            />
+            <image
+                wx:else=""
+                bindtap="onAddMarkerTap"
+                class="locationpicker-img"
+                src="./img/mark_now.png"
+            />
+        </view>
+        
+        <cover-view slot="callout">
+            <block wx:for="{{markDataList}}" wx:key="id">
+                <cover-view
+                    class="markInfoWrapper"
+                    marker-id="{{item.id}}"
+                >
+                    <cover-view class="markTypeWrapper"> 
+                        {{item.typeInfo.name}}
+                    </cover-view>
+                    <cover-view class="textLineWrapper"> 
+                        {{item.address}}
+                    </cover-view>
+                    <cover-view class="textLineWrapper"> 
+                        {{item.create_time_text}} 创建
+                    </cover-view>
+
+                    <cover-view class="detailBtnWrapper"> 
+                        <cover-view
+                            class="detailBtn"
+                        >
+                            查看详情
+                        </cover-view>
+                    </cover-view>
+                </cover-view>
+            </block>
+        </cover-view>
     </map>
     <view class="loginWrapper" wx:if="isLocationPersionAllowed">
         <van-button
             class="button"
             type="primary"
             bindtap="onLoginBtnTap"
-            wx:if="{{!isLoginedIn}}"
+            wx:if="{{!isLogin}}"
         >
             登录
         </van-button>
@@ -28,6 +73,7 @@
             class="button"
             type="primary"
             bindtap="onMarkAddBtnTap"
+            custom-class="addMarkBtn"
             wx:else
         >
             标点记录

@@ -229,7 +229,6 @@
                 label="其他"
                 placeholder="请输入内容"
                 input-align="right"
-                type="number"
                 readonly="{{isReadonly}}"
                 model:value="{{other}}"
             />
