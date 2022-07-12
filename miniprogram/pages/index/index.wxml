@@ -49,13 +49,13 @@
                         {{item.create_time_text}} 创建
                     </cover-view>
 
-                    <cover-view class="detailBtnWrapper"> 
+                    <!-- <cover-view class="detailBtnWrapper"> 
                         <cover-view
                             class="detailBtn"
                         >
                             查看详情
                         </cover-view>
-                    </cover-view>
+                    </cover-view> -->
                 </cover-view>
             </block>
         </cover-view>
