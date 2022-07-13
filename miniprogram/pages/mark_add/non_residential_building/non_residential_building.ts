@@ -43,6 +43,7 @@ Page({
         address: '',    //  位置地址信息
         // 选择建筑类型（单选）
         building_type: undefined,  //  建筑类型
+        other_remark: undefined,    //  自定义
 
         // 基本信息
         building_name: undefined, //  建筑名称

@@ -34,6 +34,7 @@ Page({
         address: '',    //  位置地址信息
         // 选择建筑类型（单选）
         building_type: undefined,  //  建筑类型
+        other_remark: undefined,    //  自定义
 
         // 小区基本信息
         community_name: undefined, //  小区名称

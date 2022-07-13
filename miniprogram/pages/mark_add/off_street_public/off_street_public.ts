@@ -40,6 +40,7 @@ Page({
         address: '',    //  位置地址信息
         // 选择类型（单选）
         parking_facilities_type: undefined,  //  停车设施类型
+        other_remark: undefined,    //  自定义
 
         // 基本信息
         parking_facilities_name: undefined, //  停车设施名称
