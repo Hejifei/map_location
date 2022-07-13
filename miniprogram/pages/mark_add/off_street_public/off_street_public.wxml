@@ -1,7 +1,7 @@
 <view class="container ">
     <view class="itemWrapper">
         <view class="title">选择类型（单选）</view>
-        <view class="itemContent radioGroupWrapper" >
+        <view class="itemContent radioGroupWrapper" style="padding-bottom: 7px;" >
             <van-radio-group
                 direction="horizontal"
                 readonly="{{isReadonly}}"
@@ -27,6 +27,7 @@
                         input-align="right"
                         custom-style="padding: 0;"
                         style="flex: 1;"
+                        border="{{false}}"
                     />
                 </van-radio>
             </van-radio-group>
