@@ -121,6 +121,7 @@
                 </van-icon>
             </van-cell>
             <van-cell
+                wx:if="{{is_charge_light_duty_vehicle}}"
                 title="收费方式"
             >
                 <van-icon slot="right-icon" >
@@ -144,6 +145,7 @@
                 </van-icon>
             </van-cell>
             <van-field
+                wx:if="{{is_charge_light_duty_vehicle}}"
                 clearable
                 label="道闸品牌"
                 placeholder="请输入道闸品牌 "
@@ -152,6 +154,7 @@
                 model:value="{{barrier_brand_light_duty_vehicle}}"
             />
             <van-cell
+                wx:if="{{is_charge_light_duty_vehicle}}"
                 title="区域等级"
             >
                 <van-icon slot="right-icon" >
@@ -175,6 +178,7 @@
             </van-cell>
 
             <first-period-hour
+                wx:if="{{is_charge_light_duty_vehicle}}"
               model:first_period_hour="{{first_period_hour_light_duty_vehicle}}"
               model:first_period_hour_money="{{first_period_hour_money_light_duty_vehicle}}"
               model:first_period_hour_per="{{first_period_hour_per_light_duty_vehicle}}"
@@ -185,6 +189,7 @@
              />
 
              <van-field
+                wx:if="{{is_charge_light_duty_vehicle}}"
                 clearable
                 label="日最高收费"
                 placeholder="请输入价格"
@@ -194,6 +199,7 @@
                 model:value="{{daily_maximum_charge_light_duty_vehicle}}"
             />
             <van-field
+                wx:if="{{is_charge_light_duty_vehicle}}"
                 clearable
                 label="其他"
                 placeholder="请输入内容"
@@ -230,6 +236,7 @@
                 </van-icon>
             </van-cell>
             <van-cell
+                wx:if="{{is_charge_large_vehicle}}"
                 title="收费方式"
             >
                 <van-icon slot="right-icon" >
@@ -253,6 +260,7 @@
                 </van-icon>
             </van-cell>
             <van-field
+                wx:if="{{is_charge_large_vehicle}}"
                 clearable
                 label="道闸品牌"
                 placeholder="请输入道闸品牌 "
@@ -261,6 +269,7 @@
                 model:value="{{barrier_brand_large_vehicle}}"
             />
             <van-cell
+                wx:if="{{is_charge_large_vehicle}}"
                 title="区域等级"
             >
                 <van-icon slot="right-icon" >
@@ -284,6 +293,7 @@
             </van-cell>
 
             <first-period-hour
+                wx:if="{{is_charge_large_vehicle}}"
               model:first_period_hour="{{first_period_hour_large_vehicle}}"
               model:first_period_hour_money="{{first_period_hour_money_large_vehicle}}"
               model:first_period_hour_per="{{first_period_hour_per_large_vehicle}}"
@@ -294,6 +304,7 @@
              />
 
              <van-field
+                wx:if="{{is_charge_large_vehicle}}"
                 clearable
                 label="日最高收费"
                 placeholder="请输入价格"
@@ -303,6 +314,7 @@
                 model:value="{{daily_maximum_charge_large_vehicle}}"
             />
             <van-field
+                wx:if="{{is_charge_large_vehicle}}"
                 clearable
                 label="其他"
                 placeholder="请输入内容"

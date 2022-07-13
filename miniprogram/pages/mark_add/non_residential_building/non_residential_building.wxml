@@ -140,6 +140,7 @@
                 </van-icon>
             </van-cell>
             <van-cell
+                wx:if="{{is_charge}}"
                 title="收费方式"
             >
                 <van-icon slot="right-icon" >
@@ -163,6 +164,7 @@
                 </van-icon>
             </van-cell>
             <van-field
+                wx:if="{{is_charge}}"
                 clearable
                 label="道闸品牌"
                 placeholder="请输入道闸品牌 "
@@ -171,6 +173,7 @@
                 model:value="{{barrier_brand}}"
             />
             <van-field
+                wx:if="{{is_charge}}"
                 clearable
                 label="包月收费"
                 placeholder="请输入价格（元/月）"
@@ -180,6 +183,7 @@
                 model:value="{{monthly_charge}}"
             />
             <van-cell
+                wx:if="{{is_charge}}"
                 title="区域等级"
             >
                 <van-icon slot="right-icon" >
@@ -203,6 +207,7 @@
             </van-cell>
 
             <first-period-hour
+                wx:if="{{is_charge}}"
               model:first_period_hour="{{first_period_hour}}"
               model:first_period_hour_money="{{first_period_hour_money}}"
               model:first_period_hour_per="{{first_period_hour_per}}"
@@ -213,6 +218,7 @@
              />
 
              <van-field
+                wx:if="{{is_charge}}"
                 clearable
                 label="日最高收费"
                 placeholder="请输入价格"
@@ -222,6 +228,7 @@
                 model:value="{{daily_maximum_charge}}"
             />
             <van-field
+                wx:if="{{is_charge}}"
                 clearable
                 label="其他"
                 placeholder="请输入内容"
