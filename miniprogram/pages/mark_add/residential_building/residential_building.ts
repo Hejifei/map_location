@@ -93,7 +93,8 @@ Page({
               data.images = images.split(',').map((url: string) => ({url}))
             }
             that.setData({
-              ...data
+              ...data,
+              charging_method: data.charging_method ? `${data.charging_method}` : data.charging_method,
             })
           }
         })
@@ -144,6 +145,8 @@ Page({
             ...query,
             //  @ts-ignore
             images,
+            //  @ts-ignore
+            charging_method: query.charging_method ? (+query.charging_method) : query.charging_method,
         }
         if (id) {
           query = {
@@ -180,5 +183,20 @@ Page({
       console.log({
         value,
       })
+    },
+    onChargingMmethodChange(event: any) {
+        const value = event.detail
+        const oldValue = this.data.charging_method
+        let currentSelectedValue = null
+        if (!oldValue && value.length > 0) {
+            currentSelectedValue = value[0]
+        } else if (oldValue && value.length > 0) {
+            const index = value.indexOf(oldValue)
+            value.splice(index, 1)
+            currentSelectedValue = value[0]
+        }
+        this.setData({
+            charging_method: currentSelectedValue,
+        });
     }
 })

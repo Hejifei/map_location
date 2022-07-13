@@ -10,7 +10,7 @@
                 slot="right-icon"
                 wx:if="{{first_recording_time}}"
             >
-                {{first_recording_time}}
+                {{first_recording_time || ''}}
             </van-icon>
             <van-icon
                 slot="right-icon"
@@ -48,7 +48,7 @@
                 slot="right-icon"
                 wx:if="{{peak_recording_time}}"
             >
-                {{peak_recording_time}}
+                {{peak_recording_time || ''}}
             </van-icon>
             <van-icon
                 slot="right-icon"

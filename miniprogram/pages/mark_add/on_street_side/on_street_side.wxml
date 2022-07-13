@@ -196,13 +196,14 @@
             <van-cell
                 title="收费方式"
             >
-                <van-icon slot="right-icon" >
-                    <van-radio-group
+                <van-icon slot="right-icon"  style="flex: 1;">
+                    <van-checkbox-group
                         direction="horizontal"
                         readonly="{{isReadonly}}"
-                        model:value="{{charging_method_light_duty_vehicle}}"
+                        value="{{charging_method_light_duty_vehicle ? [charging_method_light_duty_vehicle] : []}}"
+                        bind:change="onChargingMmethodChangeLightDutyVehicle"
                     >
-                        <van-radio
+                        <van-checkbox
                             icon-size="15px"
                             custom-class="radio"
                             wx:for="{{chargingMmethodOptionList}}"
@@ -211,8 +212,8 @@
                             name="{{item.value}}"
                         >
                             {{item.name}}
-                        </van-radio>
-                    </van-radio-group>
+                        </van-checkbox>
+                    </van-checkbox-group>
                 </van-icon>
             </van-cell>
             <van-cell
@@ -296,23 +297,23 @@
             <van-cell
                 title="收费方式"
             >
-                <van-icon slot="right-icon" >
-                    <van-radio-group
+                <van-icon slot="right-icon"  style="flex: 1;">
+                    <van-checkbox-group
                         direction="horizontal"
                         readonly="{{isReadonly}}"
-                        model:value="{{charging_method_large_vehicle}}"
+                        value="{{charging_method_large_vehicle ? [charging_method_large_vehicle] : []}}"
+                        bind:change="onChargingMmethodChangeLargeVehicle"
                     >
-                        <van-radio
+                        <van-checkbox
                             icon-size="15px"
-                            custom-class="radio"
                             wx:for="{{chargingMmethodOptionList}}"
                             wx:key="name"
                             wx:for-item="item"
                             name="{{item.value}}"
                         >
                             {{item.name}}
-                        </van-radio>
-                    </van-radio-group>
+                        </van-checkbox>
+                    </van-checkbox-group>
                 </van-icon>
             </van-cell>
             <van-cell

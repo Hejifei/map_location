@@ -1,49 +1,54 @@
 <view class="container ">
-  <view
-    wx:for="{{markerList}}"
-    wx:key="id"
-    wx:for-item="item"
-    class="type_item_wrapper"
-   >
-    <view class="type_info_wrapper">
-        <image
-            src="{{item.typeInfo.img_src}}"
-            class="logo"
-        />
-        <view class="name">
-            {{item.typeInfo.name}}
+    <view
+        wx:for="{{markerList}}"
+        wx:key="id"
+        wx:for-item="item"
+        class="type_item_wrapper"
+    >
+        <view class="type_info_wrapper">
+            <image
+                src="{{item.typeInfo.img_src}}"
+                class="logo"
+            />
+            <view class="name">
+                {{item.typeInfo.name}}
+            </view>
+        </view>
+        <view class="address">{{item.address}}</view>
+        <view class="info_line_wrapper">
+            <image class="icon" src="../../assets/imgs/user_icon.png" />
+            <view class="name">{{item.user.username}}</view>
+            <view class="time">{{item.create_time_text}}</view>
+            创建
+        </view>
+        <view class="action_line">
+            <van-button
+                class="button"
+                type="primary"
+                data-id="{{item.tag_id}}"
+                data-lat="{{item.lat}}"
+                data-lng="{{item.lng}}"
+                data-address="{{item.address}}"
+                bindtap="onMarkLocationTap"
+            >
+                查看标点
+            </van-button>
+            <van-button
+                class="button"
+                type="info"
+                data-id="{{item.tag_id}}"
+                data-url="{{item.typeInfo.url}}"
+                bindtap="onMarkDetailTap"
+            >
+                查看详情
+            </van-button>
         </view>
     </view>
-    <view class="address">{{item.address}}</view>
-    <view class="info_line_wrapper">
-        <image class="icon" src="../../assets/imgs/user_icon.png" />
-        <view class="name">{{item.user.username}}</view>
-        <view class="time">{{item.create_time_text}}</view>
-        创建
-    </view>
-    <view class="action_line">
-        <van-button
-            class="button"
-            type="primary"
-            data-id="{{item.tag_id}}"
-            data-lat="{{item.lat}}"
-            data-lng="{{item.lng}}"
-            data-address="{{item.address}}"
-            bindtap="onMarkLocationTap"
-        >
-            查看标点
-        </van-button>
-        <van-button
-            class="button"
-            type="info"
-            data-id="{{item.tag_id}}"
-            data-url="{{item.typeInfo.url}}"
-            bindtap="onMarkDetailTap"
-        >
-            查看详情
-        </van-button>
-    </view>
-  </view>
 
+    <image
+        wx:if="{{markerList.length === 0}}"
+        src="../../assets/imgs/404.png"
+        class="noDataImg"
+    />
   <van-toast id="van-toast" />
 </view>

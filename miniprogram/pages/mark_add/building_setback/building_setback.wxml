@@ -95,12 +95,13 @@
                 title="收费方式"
             >
                 <van-icon slot="right-icon" >
-                    <van-radio-group
+                    <van-checkbox-group
                         direction="horizontal"
                         readonly="{{isReadonly}}"
-                        model:value="{{charging_method}}"
+                        value="{{charging_method ? [charging_method] : []}}"
+                        bind:change="onChargingMmethodChange"
                     >
-                        <van-radio
+                        <van-checkbox
                             icon-size="15px"
                             custom-class="radio"
                             wx:for="{{chargingMmethodOptionList}}"
@@ -109,8 +110,8 @@
                             name="{{item.value}}"
                         >
                             {{item.name}}
-                        </van-radio>
-                    </van-radio-group>
+                        </van-checkbox>
+                    </van-checkbox-group>
                 </van-icon>
             </van-cell>
             <van-field

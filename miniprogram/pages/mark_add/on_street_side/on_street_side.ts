@@ -127,6 +127,8 @@ Page({
               west_side_the_road: !!west_side_the_road,
               south_side_the_road: !!south_side_the_road,
               north_side_the_road: !!north_side_the_road,
+              charging_method_light_duty_vehicle: data.charging_method_light_duty_vehicle ? `${data.charging_method_light_duty_vehicle}` : data.charging_method_light_duty_vehicle,
+              charging_method_large_vehicle: data.charging_method_large_vehicle ? `${data.charging_method_large_vehicle}` : data.charging_method_large_vehicle,
             })
           }
         })
@@ -217,6 +219,10 @@ Page({
             ...query,
             //  @ts-ignore
             id,
+            //  @ts-ignore
+            charging_method_large_vehicle: query.charging_method_large_vehicle ? (+query.charging_method_large_vehicle) : query.charging_method_large_vehicle,
+            //  @ts-ignore
+            charging_method_light_duty_vehicle: query.charging_method_light_duty_vehicle ? (+query.charging_method_light_duty_vehicle) : query.charging_method_light_duty_vehicle,
           }
         }
         
@@ -247,5 +253,35 @@ Page({
       console.log({
         value,
       })
+    },
+    onChargingMmethodChangeLargeVehicle(event: any) {
+        const value = event.detail
+        const oldValue = this.data.charging_method_large_vehicle
+        let currentSelectedValue = null
+        if (!oldValue && value.length > 0) {
+            currentSelectedValue = value[0]
+        } else if (oldValue && value.length > 0) {
+            const index = value.indexOf(oldValue)
+            value.splice(index, 1)
+            currentSelectedValue = value[0]
+        }
+        this.setData({
+            charging_method_large_vehicle: currentSelectedValue,
+        });
+    },
+    onChargingMmethodChangeLightDutyVehicle(event: any) {
+        const value = event.detail
+        const oldValue = this.data.charging_method_light_duty_vehicle
+        let currentSelectedValue = null
+        if (!oldValue && value.length > 0) {
+            currentSelectedValue = value[0]
+        } else if (oldValue && value.length > 0) {
+            const index = value.indexOf(oldValue)
+            value.splice(index, 1)
+            currentSelectedValue = value[0]
+        }
+        this.setData({
+            charging_method_light_duty_vehicle: currentSelectedValue,
+        });
     }
 })

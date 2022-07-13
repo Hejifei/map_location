@@ -142,14 +142,16 @@
             </van-cell>
             <van-cell
                 title="收费方式"
+                wx:if="{{is_charge}}"
             >
                 <van-icon slot="right-icon" >
-                    <van-radio-group
+                    <van-checkbox-group
                         direction="horizontal"
                         readonly="{{isReadonly}}"
-                        model:value="{{charging_method}}"
+                        value="{{charging_method ? [charging_method] : []}}"
+                        bind:change="onChargingMmethodChange"
                     >
-                        <van-radio
+                        <van-checkbox
                             icon-size="15px"
                             custom-class="radio"
                             wx:for="{{chargingMmethodOptionList}}"
@@ -158,11 +160,12 @@
                             name="{{item.value}}"
                         >
                             {{item.name}}
-                        </van-radio>
-                    </van-radio-group>
+                        </van-checkbox>
+                    </van-checkbox-group>
                 </van-icon>
             </van-cell>
             <van-field
+                wx:if="{{is_charge}}"
                 clearable
                 label="道闸品牌"
                 placeholder="请输入道闸品牌 "
@@ -171,6 +174,7 @@
                 model:value="{{barrier_brand}}"
             />
             <van-field
+                wx:if="{{is_charge}}"
                 clearable
                 label="包月收费"
                 placeholder="请输入价格（元/月）"
@@ -180,6 +184,7 @@
                 model:value="{{monthly_charge}}"
             />
             <van-field
+                wx:if="{{is_charge}}"
                 clearable
                 label="免费时长"
                 placeholder="请输入时间（分钟）"
@@ -189,6 +194,7 @@
                 model:value="{{free_time}}"
             />
             <van-field
+                wx:if="{{is_charge}}"
                 clearable
                 label="白天按次收费"
                 placeholder="请输入价格（元/次）"
@@ -198,6 +204,7 @@
                 model:value="{{charge_per_time_during_the_day}}"
             />
             <van-field
+                wx:if="{{is_charge}}"
                 clearable
                 label="白天按时收费"
                 placeholder="请输入价格（元/小时）"
@@ -207,6 +214,7 @@
                 model:value="{{charge_on_time_during_the_day}}"
             />
             <van-field
+                wx:if="{{is_charge}}"
                 clearable
                 label="夜间按次收费"
                 placeholder="请输入价格（元/次）"
@@ -216,6 +224,7 @@
                 model:value="{{charge_per_night}}"
             />
             <van-field
+                wx:if="{{is_charge}}"
                 clearable
                 label="夜间按时收费"
                 placeholder="请输入价格（元/小时）"
@@ -225,6 +234,7 @@
                 model:value="{{charge_on_time_at_night}}"
             />
             <van-field
+                wx:if="{{is_charge}}"
                 clearable
                 label="其他"
                 placeholder="请输入内容"

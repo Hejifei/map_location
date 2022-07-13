@@ -118,7 +118,14 @@ Page({
               data.images = images.split(',').map((url: string) => ({url}))
             }
             that.setData({
-              ...data
+              ...data,
+              charging_method_light_duty_vehicle: data.charging_method_light_duty_vehicle ? `${data.charging_method_light_duty_vehicle}` : data.charging_method_light_duty_vehicle,
+              charging_method_large_vehicle: data.charging_method_large_vehicle ? `${data.charging_method_large_vehicle}` : data.charging_method_large_vehicle,
+            }, () => {
+                console.log({
+                    data: that.data,
+                    res,
+                })
             })
           }
         })
@@ -170,6 +177,10 @@ Page({
             ...query,
             //  @ts-ignore
             images,
+            //  @ts-ignore
+            charging_method_large_vehicle: query.charging_method_large_vehicle ? (+query.charging_method_large_vehicle) : query.charging_method_large_vehicle,
+            //  @ts-ignore
+            charging_method_light_duty_vehicle: query.charging_method_light_duty_vehicle ? (+query.charging_method_light_duty_vehicle) : query.charging_method_light_duty_vehicle,
         }
         if (id) {
           query = {
@@ -195,16 +206,41 @@ Page({
                 }, 500)
           }
         })
-
-        
     },
     onImgChange (e: any) {
       const value = e.detail
       this.setData({
         images: value,
       })
-      console.log({
-        value,
-      })
+    },
+    onChargingMmethodChangeLargeVehicle(event: any) {
+        const value = event.detail
+        const oldValue = this.data.charging_method_large_vehicle
+        let currentSelectedValue = null
+        if (!oldValue && value.length > 0) {
+            currentSelectedValue = value[0]
+        } else if (oldValue && value.length > 0) {
+            const index = value.indexOf(oldValue)
+            value.splice(index, 1)
+            currentSelectedValue = value[0]
+        }
+        this.setData({
+            charging_method_large_vehicle: currentSelectedValue,
+        });
+    },
+    onChargingMmethodChangeLightDutyVehicle(event: any) {
+        const value = event.detail
+        const oldValue = this.data.charging_method_light_duty_vehicle
+        let currentSelectedValue = null
+        if (!oldValue && value.length > 0) {
+            currentSelectedValue = value[0]
+        } else if (oldValue && value.length > 0) {
+            const index = value.indexOf(oldValue)
+            value.splice(index, 1)
+            currentSelectedValue = value[0]
+        }
+        this.setData({
+            charging_method_light_duty_vehicle: currentSelectedValue,
+        });
     }
 })
