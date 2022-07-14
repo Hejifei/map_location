@@ -1,10 +1,13 @@
 import {
   MARK_TYPE_MAP,
+  MARK_TYPE_LIST,
 } from '../../common/index';
 import {Request} from '../../utils/request'
 
 Page({
   data: {
+    MARK_TYPE_LIST,
+    activeTab: undefined,
     markerList: [
         // {
         //     id: 1,
@@ -23,6 +26,7 @@ Page({
         //     typeInfo: MARK_TYPE_MAP[2],
         // },
     ],
+    showDataList: []
   },
   onLoad() {
     const that = this
@@ -39,9 +43,13 @@ Page({
           ...item,
           typeInfo: MARK_TYPE_MAP[item.type]
         }))
+        console.log({
+            list,
+        })
         that.setData({
           //  @ts-ignore
           markerList: list,
+          showDataList: list,
         })
       }
     })
@@ -59,5 +67,19 @@ Page({
     wx.navigateTo({
       url: `/pages/index/index?address=${address}&lat=${lat}&lng=${lng}`,
     })
+  },
+  onTabChange(event: any) {
+    const value = event.detail.name
+      console.log({
+          event,
+          name: event.detail.name,
+      })
+      this.setData({
+        showDataList: this.data.markerList.filter(item => value ? item.type === value : true)
+      })
+    // wx.showToast({
+    //   title: `切换到标签 ${event.detail.name}`,
+    //   icon: 'none',
+    // });
   },
 })

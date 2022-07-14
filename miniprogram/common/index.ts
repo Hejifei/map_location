@@ -10,6 +10,8 @@ export const MARK_TYPE_OFF_STREET_PUBLIC = 3;   //  路外公共停车设施
 export const MARK_TYPE_ON_STREET_SIDE = 4;  //  道路停车设施
 export const MARK_TYPE_BUILDING_SETBACK = 5;    //  建筑物退让空间停车设施
 
+
+
 export const MARK_TYPE_MAP: Record<number, {
   name: string
   img_src: string
@@ -58,3 +60,12 @@ export const MARK_TYPE_MAP: Record<number, {
         // location_icon_url: `${CDN_PATH}/Marker3_Activated@3x.png`,
     },
 }
+
+export const MARK_TYPE_LIST = [
+    {name: '全部', value: undefined},
+    {name: '居住类建筑', value: MARK_TYPE_RESIDENTIAL_BUILDING},
+    {name: '非居住类建筑', value: MARK_TYPE_NON_RESIDENTIAL_BUILDING},
+    {name: '路外公共', value: MARK_TYPE_OFF_STREET_PUBLIC},
+    {name: '道路', value: MARK_TYPE_ON_STREET_SIDE},
+    {name: '建筑物退让空间', value: MARK_TYPE_BUILDING_SETBACK},
+]

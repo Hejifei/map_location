@@ -2,8 +2,27 @@
 
 .container {
     box-sizing: border-box;
-    padding: 20px 14px;
+    width: 100%;
 
+    .tabWrapper {
+        box-sizing: border-box;
+        width: 100%;
+
+        .defaultTabClass {
+            font-size: 15px;
+            color: #999999;
+        }
+        .activeTab {
+            font-size: 17px;
+            color: #333333;
+        }
+    }
+
+    .listWrapper {
+        box-sizing: border-box;
+        padding: 20px 14px;
+        width: 100%;
+    }
     .type_item_wrapper {
         box-sizing: border-box;
         
@@ -70,7 +89,7 @@
 
             button {
                 width: 90px;
-                height: 25px;
+                height: 28px;
                 font-size: 13px;
                 line-height: 20px;
                 border-radius: 13px;
@@ -79,9 +98,14 @@
         }
     }
 }
-
+.noDataImgWrapper {
+    box-sizing: border-box;
+    width: 100%;
+    text-align: center;
+}
 .noDataImg {
+    box-sizing: border-box;
     width: 188px;
     height: 126px;
-    margin: 115px auto 0  auto;
+    margin: 75px auto 0  auto;
 }
