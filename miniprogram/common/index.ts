@@ -1,7 +1,7 @@
 // export const REQUEST_URL = 'http://gmap.dev.zhangxinkeji.com'
 export const CDN_PATH = 'https://3gimg.qq.com/lightmap/xcx/demoCenter/images';
-export const REQUEST_URL = 'https://gmap.dev.zhangxinkeji.com'
-
+// export const REQUEST_URL = 'https://gmap.dev.zhangxinkeji.com'  //  test
+export const REQUEST_URL = 'https://gmap.weigoutong.com'  //  pro
 export const ERROR_CODE_NEED_LOGIN = 401  //  错误码,需要重新登录
 
 export const MARK_TYPE_RESIDENTIAL_BUILDING = 1;    //  居住类建筑停车设施

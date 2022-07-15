@@ -10,7 +10,6 @@
             tab-class="defaultTabClass"
             tab-active-class="activeTab"
             swipeable="{{true}}"
-            animated
         >
             <van-tab
                 wx:for="{{MARK_TYPE_LIST}}"
